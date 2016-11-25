@@ -1,0 +1,17 @@
+Package: disseRtate
+Type: Package
+Title: Random Functions for Working on a Dissertation
+Version: 0.1.0
+Author: Darrell J. Penta
+Maintainer: Darrell J. Penta <darrellpenta@gmail.com>
+Description: Various functions that one might need when writing a doctoral dissertation.
+License: Creative Commons
+Encoding: UTF-8
+LazyData: true
+Imports: dplyr,
+    stats,
+    lazyeval,
+    broom,
+    stringi,
+    tidyr
+RoxygenNote: 5.0.1.9000
