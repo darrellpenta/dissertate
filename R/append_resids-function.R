@@ -1,24 +1,18 @@
-#' Append Residuals Function
+#' Append residuals to a dataframe.
 #'
-#' @param dataframe a dataframe with at least two numeric/integer columns suitable for fitting to `stats::lm(y ~ x)`
-#' @param id.group  a list of one or more RHS formulas naming the dataframe column(s) that will be used to create a unique row identifier for binding the column of residual values: list(~col1,~col2); if NULL (default), assumes each row is unique )
-#' @param lm.form = a list of exactly two RHS formulas naming the dataframe columns over which residulas will be computed, or else a formula to be passed to `stats::lm()`
-#' @keywords residuals
-#' @return a copy of the original dataframe with residual columns appended
+
+#' \code{append_resids} returns a copy of dataframe with residual values from \code{\link[stats]{lm}} appended.
+#'
+#' @param dataframe A dataframe with at least two numeric or integer columns suitable for fitting with \code{\link[stats]{lm}}.
+#' @param id.group  A list of one or more RHS formulas (see \code{\link[lazyeval]{f_rhs}}) naming the dataframe column(s) that will be used to create a unique row identifier for binding the column of residual values to the original dataframe: list(~col1,~col2); if NULL (default), assumes each row is unique. )
+#' @param lm.form = A list of exactly two RHS formulas (see \code{\link[lazyeval]{f_rhs}}) naming the dataframe columns over which residulas will be computed, or else a formula to be passed to  \code{\link[stats]{lm}}.
+#' @return A copy of the original dataframe with residual columns appended. When the \code{lm.form} arguments is a list of exactly two RHS formulas, column names are \code{col1.res.col2} & \code{col2.res.col2}; otherwise, the coloumn name is a reasonably interpretable but abbreviated version of the column names in the formula passed to \code{\link[stats]{lm}}, where the LHS and RHS are separate by \code{.res.}
 #' @export
 
 
 append_resids <-
   function(dataframe, id.group, lm.form) {
-    # Append one or more residual values to a dataframe
 
-    # Args:
-    #   dataframe = a dataframe with at least two numeric/integer columns suitable for fitting to `lm(y ~ x)`
-    #   id.group = a list of one or more RHS formulas naming the dataframe column(s) that will be used to create a unique row identifier for binding the column of residual values: list(~col1,~col2); if NULL (default), assumes each row is unqiue. )
-    #   lm.form = a list of exactly two RHS formulas naming the dataframe columns over which residulas will be computed, or a formula to be passed to `lm()`
-
-    # Returns:
-    # A copy of the original dataframe with residual columns appended.  When lm.form includes a one-term RHS formula, column names are `ycol.res.xcol` & `xcol.res.ycol`; otherwise, the coloumn name a reasonably interpretable but ebbreviated version of the column names in the formula passed to `lm()`, where the LHS and RHS are separate by `.res.`.
 
     # Evaluate id.group -------------------------------------------------------
     if (is.null(id.group)) {
