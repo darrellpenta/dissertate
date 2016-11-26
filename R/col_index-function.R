@@ -8,4 +8,5 @@
 #' @export
 
 col_index <- function(X) {
-  matrix(names(X))}
+  matrix(names(X))
+  }

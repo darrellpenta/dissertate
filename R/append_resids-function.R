@@ -23,8 +23,8 @@ append_resids <-
     } else {
       id.group.check <-
         id.group %>%
-        lapply(lazyeval::expr_text(lazyeval::uq))
-
+        lapply(lazyeval::uq)
+      
       absent_cols <-
         id.group.check %in% colnames(dataframe)
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/scatter_stats-function.R
 \name{scatter_stats}
 \alias{scatter_stats}
-\title{Compute useful statistics for use with \code{\link[disseRtate]{scatter}}.}
+\title{Compute useful statistics for use with \code{\link[dissertate]{scatter}}.}
 \usage{
 scatter_stats(statdf, statx, staty, grp_by_form = NULL)
 }
@@ -17,6 +17,6 @@ scatter_stats(statdf, statx, staty, grp_by_form = NULL)
 A dataframe with model fit statistics and minimum and maximum values for \code{statx} and \code{staty}
 }
 \description{
-Provides statistics that are used in \code{\link[disseRtate]{scatter}} and passed to \code{\link[ggplot2]{ggplot2}}) to display model fit results and determin appropriate plot scales, etc.
+Provides statistics that are used in \code{\link[dissertate]{scatter}} and passed to \code{\link[ggplot2]{ggplot2}}) to display model fit results and determin appropriate plot scales, etc.
 }
 

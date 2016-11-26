@@ -1,11 +1,11 @@
-Package: disseRtate
+Package: dissertate
 Type: Package
-Title: Random Functions for Working on a Dissertation
+Title: Random Functions that make Working on a Dissertation a Little Less Agonizing.
 Version: 0.1.0
 Author: Darrell J. Penta
 Maintainer: Darrell J. Penta <darrellpenta@gmail.com>
 Description: Various functions that one might need when writing a doctoral dissertation.
-License: Creative Commons
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports: dplyr,

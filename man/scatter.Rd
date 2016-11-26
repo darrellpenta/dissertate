@@ -18,7 +18,7 @@ scatter(df, x, y, line_col = "#5B1A18", fill_col = "#FD6467",
 
 \item{facet_form}{A quoted string to be used as formula for facetting the figures, as, for example "factor1+factor2"; default = \code{NULL}.}
 
-\item{grp_by}{If the scatter plot will include faceting, a list of RHS formulas (see \code{\link[lazyeval]{f_rhs}}) to be passed to \code{\link[disseRtate]{scatter_stats}}; default = \code{NULL}. Ensures stats are calculated separately for each group.}
+\item{grp_by}{If the scatter plot will include faceting, a list of RHS formulas (see \code{\link[lazyeval]{f_rhs}}) to be passed to \code{\link[dissertate]{scatter_stats}}; default = \code{NULL}. Ensures stats are calculated separately for each group.}
 
 \item{add_stats}{Logical; Add model fit info to the figure? Default = \code{TRUE}.}
 }

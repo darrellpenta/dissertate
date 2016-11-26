@@ -8,7 +8,7 @@
 #' @param line_col The color of the \code{\link[ggplot2]{geom_smooth}} line; default is "#5B1A18" from the "GrandBudapest" palette in \link[https://github.com/karthik/wesanderson]{wes_palettes}.
 #' @param fill_col The color of the \code{\link[ggplot2]{geom_smooth}} fill; default is "#FD6467" from the "GrandBudapest" palette in \link[https://github.com/karthik/wesanderson]{wes_palettes}.
 #' @param facet_form A quoted string to be used as formula for facetting the figures, as, for example "factor1+factor2"; default = \code{NULL}.
-#' @param grp_by If the scatter plot will include faceting, a list of RHS formulas (see \code{\link[lazyeval]{f_rhs}}) to be passed to \code{\link[disseRtate]{scatter_stats}}; default = \code{NULL}. Ensures stats are calculated separately for each group.
+#' @param grp_by If the scatter plot will include faceting, a list of RHS formulas (see \code{\link[lazyeval]{f_rhs}}) to be passed to \code{\link[dissertate]{scatter_stats}}; default = \code{NULL}. Ensures stats are calculated separately for each group.
 #' @param add_stats Logical; Add model fit info to the figure? Default = \code{TRUE}.
 #' @return A ggplot2 object.
 #' @export

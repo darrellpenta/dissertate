@@ -1,7 +1,7 @@
-#' Compute useful statistics for use with \code{\link[disseRtate]{scatter}}.
+#' Compute useful statistics for use with \code{\link[dissertate]{scatter}}.
 #'
 #'
-#' Provides statistics that are used in \code{\link[disseRtate]{scatter}} and passed to \code{\link[ggplot2]{ggplot2}}) to display model fit results and determin appropriate plot scales, etc.
+#' Provides statistics that are used in \code{\link[dissertate]{scatter}} and passed to \code{\link[ggplot2]{ggplot2}}) to display model fit results and determin appropriate plot scales, etc.
 #'
 #' @param statdf The dataframe being plotted.
 #' @param statx,staty  The (bare) names of the column in \code{statdf} to be used as the \code{x} and \code{y} in the scatterplot.
