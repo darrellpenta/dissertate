@@ -1,17 +1,20 @@
 Package: dissertate
 Type: Package
-Title: Random Functions that make Working on a Dissertation a Little Less Agonizing.
+Title: Random Functions that make Working on a Dissertation a Little Less
+    Agonizing.
 Version: 0.1.0
 Author: Darrell J. Penta
 Maintainer: Darrell J. Penta <darrellpenta@gmail.com>
-Description: Various functions that one might need when writing a doctoral dissertation.
+Description: Various functions that one might need when writing a doctoral
+    dissertation.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Imports: dplyr,
+Imports:
+    dplyr,
     stats,
     lazyeval,
     broom,
     stringi,
     tidyr
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 5.0.1

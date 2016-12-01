@@ -2,7 +2,7 @@
 % Please edit documentation in R/flist_to_dots-function.R
 \name{flist_to_dots}
 \alias{flist_to_dots}
-\title{Create quoted input for the NSE dots argument from list of formulas or a character vector of such a list for the NSE dots arugment.}
+\title{Create quoted input for NSE \code{.dots}}
 \usage{
 flist_to_dots(formlist)
 }
@@ -13,7 +13,7 @@ flist_to_dots(formlist)
 A quoted expression that can be interpred as a \code{dots} argument.
 }
 \description{
-\code{flist_to_dots} prepares a list of formulas or a character vector of such a list to be passed to the \code{.dots} argument of the NSE versions of dplyr \code{\link[dplyr]{nse}} functions like \code{\link[dplyr]{select_}}. It can be useful in cases where you've got a list of conditions in a separate dataframe, etc.
+\code{flist_to_dots} takes a list of formulas or a character vector of such a list and \"quotes\" it for passing to the \code{.dots} argument of the NSE versions of dplyr \code{\link[dplyr]{nse}} functions like \code{\link[dplyr]{select_}}. It can be useful in cases where you've got a list of conditions in a separate dataframe, etc.
 }
 \examples{
  ## With a list of RHS formulas

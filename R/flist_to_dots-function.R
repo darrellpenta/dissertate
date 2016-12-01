@@ -1,7 +1,7 @@
-#' Create quoted input for the NSE dots argument from list of formulas or a character vector of such a list for the NSE dots arugment.
+#' Create quoted input for NSE \code{.dots}
 #'
 
-#' \code{flist_to_dots} prepares a list of formulas or a character vector of such a list to be passed to the \code{.dots} argument of the NSE versions of dplyr \code{\link[dplyr]{nse}} functions like \code{\link[dplyr]{select_}}. It can be useful in cases where you've got a list of conditions in a separate dataframe, etc.
+#' \code{flist_to_dots} takes a list of formulas or a character vector of such a list and \"quotes\" it for passing to the \code{.dots} argument of the NSE versions of dplyr \code{\link[dplyr]{nse}} functions like \code{\link[dplyr]{select_}}. It can be useful in cases where you've got a list of conditions in a separate dataframe, etc.
 #'
 #' @param formlist Either a list of comma-separated RHS formulas, as \code{list(~f1, ~f2)}, or a character vector of such a list: \code{"list(~col1,col2)"}.
 #' @return A quoted expression that can be interpred as a \code{dots} argument.
