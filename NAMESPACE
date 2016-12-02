@@ -2,7 +2,7 @@
 
 export(append_resids)
 export(col_index)
-export(flist_to_dots)
+export(fs_to_dots)
 export(get_range)
 export(get_range.tex)
 export(get_range_grt_than)
