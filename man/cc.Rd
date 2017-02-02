@@ -2,7 +2,7 @@
 % Please edit documentation in R/cc-function.R
 \name{cc}
 \alias{cc}
-\title{Split a string at space (an alternative to \code{c()})}
+\title{Split a quoted string at space (an alternative to \code{c()})}
 \usage{
 cc(string_to_split, type = "c")
 }

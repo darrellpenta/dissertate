@@ -1,4 +1,4 @@
-#' Split a string at space (an alternative to \code{c()})
+#' Split a quoted string at space (an alternative to \code{c()})
 #'
 
 #' \code{cc} is a wrapper around \code{\link[stringr]{str_split}} that takes a single quoted string whose elements are to be split at whitespace.
