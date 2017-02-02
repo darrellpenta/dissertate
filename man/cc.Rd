@@ -4,13 +4,15 @@
 \alias{cc}
 \title{Split a string at space (an alternative to \code{c()})}
 \usage{
-cc(string_to_split)
+cc(string_to_split, type = "c")
 }
 \arguments{
 \item{string_to_split}{A single quoted string.}
+
+\item{type}{One of \code{c} (default) to return a character vector; \code{i} to return an integer vector; \code{n} to return a numeric vector.}
 }
 \value{
-A simplified character matrix
+A character, integer, or numeric vector.
 }
 \description{
 \code{cc} is a wrapper around \code{\link[stringr]{str_split}} that takes a single quoted string whose elements are to be split at whitespace.
