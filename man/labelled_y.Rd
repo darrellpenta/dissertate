@@ -19,4 +19,3 @@ If tex = TRUE, the column label as a \code{\link[grDevices]{plotmath}} expressio
 \description{
 For dataframes with labels (see \code{\link[sjmisc]{get_label}}),  \code{labelled_y} returns an epxression (for LaTex = TRUE) or string that can be passed to \code{ylab} in a \code{ggplot} (see \code{\link[ggplot2]{ggtitle}}).
 }
-

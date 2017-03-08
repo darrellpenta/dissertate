@@ -15,4 +15,3 @@ The significance range: e.g., "<.001"
 \description{
 May be useful when non-singificant values are going to be displayed or reported.
 }
-

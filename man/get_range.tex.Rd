@@ -15,4 +15,3 @@ The bare significance range: e.g., "001"
 \description{
 May be useful when numbers will be used in a LaTex document or places where only the numerical value as a character is wanted.
 }
-

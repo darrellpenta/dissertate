@@ -15,4 +15,3 @@ The significance range: e.g., "<.001"
 \description{
 For when p-value stars are not appropriate, etc.
 }
-

@@ -15,4 +15,3 @@ A character star: e.g., ***,**,*, ., NULL
 \description{
 Uses the standard range of intervals to determine the nubmer of stars.
 }
-

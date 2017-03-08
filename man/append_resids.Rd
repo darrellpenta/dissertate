@@ -19,4 +19,3 @@ A copy of the original dataframe with residual columns appended. When the \code{
 \description{
 \code{append_resids} returns a copy of dataframe with residual values from \code{\link[stats]{lm}} appended.
 }
-

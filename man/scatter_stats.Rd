@@ -19,4 +19,3 @@ A dataframe with model fit statistics and minimum and maximum values for \code{s
 \description{
 Provides statistics that are used in \code{\link[dissertate]{scatter}} and passed to \code{\link[ggplot2]{ggplot2}}) to display model fit results and determin appropriate plot scales, etc.
 }
-

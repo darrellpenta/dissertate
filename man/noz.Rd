@@ -15,4 +15,3 @@ noz(x)
 \description{
 Useful when numbers are going to be used in APA-foramatted documents. Note that this concerts the number to a character vector and is not guaranteed to produce the appropriate result in all cases.
 }
-

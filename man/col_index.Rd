@@ -15,4 +15,3 @@ A numbered matrix of columnames.
 \description{
 For convenience.
 }
-

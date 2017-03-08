@@ -28,4 +28,3 @@ A ggplot2 object.
 \description{
 \code{scatter} streamlines the process of creating a scatterplot in \code{ggplot2}, with some flexibilty for faceting (see \code{\link[ggplot2]{ggplot2}}).
 }
-
