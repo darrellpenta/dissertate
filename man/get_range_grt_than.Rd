@@ -4,10 +4,12 @@
 \alias{get_range_grt_than}
 \title{Return p-value as a range with in indicator for values greater than .10.}
 \usage{
-get_range_grt_than(p)
+get_range_grt_than(p, print_marg = FALSE)
 }
 \arguments{
 \item{p}{A number for which a p-value rage should be returned.}
+
+\item{print_marg}{Should marginally significant values be printed? Set to FALSE}
 }
 \value{
 The significance range: e.g., "<.001"
