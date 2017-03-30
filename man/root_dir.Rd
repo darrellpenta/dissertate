@@ -6,6 +6,9 @@
 \usage{
 root_dir(pathpart)
 }
+\arguments{
+\item{pathpart}{A string to the path}
+}
 \value{
 A character vector with the path to the root directory appended to the path-part specified.
 }
