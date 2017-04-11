@@ -1,45 +1,44 @@
 #' Create a data frame of variable combinations for a fully-crossed factorial design
 #'
-#' This the generic factorial_grid function. See the following functions
-#' for the details about different data structures:
+#' This the generic factor_grid function. See Details.
 #'
 #' \itemize{
-#'   \item \code{\link{factorial_grid.list}} for a named list
-#'   \item \code{\link{factorial_grid.data.frame}} for a dataframe
+#'   \item \code{\link{factor_grid.list}} for a named list
+#'   \item \code{\link{df_to_factgrid}} for a dataframe
 #' }
 #'
-#' @param data data that will be converted to a dataframe of the "factor.grid" class
+#' @param data data that will be converted to a \code{factor.grid} dataframe
 #' @param ... further arguments passed to or from other methods
-#' @return a dataframe of class "factor.grid" for passing to additional functions
+#' @return a dataframe of class "factor.grid" for passing to additional \link{factorial-design functions}
 #' @family factorial-design functions
-#'
+#' @importFrom magrittr %>%
 #' @export
 #'
-factorial_grid <- function(data, ...) {
-  UseMethod("factorial_grid", data)
+factor_grid <- function(data, ...) {
+  UseMethod("factor_grid", data)
 }
-#' A vectorized vesion of the \code{factorial_grid} function
+#' A vectorized vesion of the \code{factor_grid} function
 #' @family factorial-design functions
-#' @rdname factorial_grid
+#' @rdname factor_grid
 #' @export
-factorial_grid.default <-
+factor_grid.default <-
   Vectorize(
     FUN = function(data, ...)
-      factorial_grid(data, ...),
+      factor_grid(data, ...),
     vectorize.args = c("data"),
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE
   )
 
 #' Create a factor grid object from a named list of factors
-#' @importFrom magrittr %>%
 #' @family factorial-design functions
 #' @examples
 #' # create a factorial grid data frame by passing a named list of factors/levels
-#' factorial_grid(list("myvar1" = c("A","B","C","D"),
+#' factor_grid(list("myvar1" = c("A","B","C","D"),
 #' "myvar2" = c("long","short")))
+#' @include combine_factor_levels-function.R
 #' @export
-factorial_grid.list <-
+factor_grid.list <-
   function(data, ...) {
 
     assertthat::validate_that(is.list(data),
@@ -105,9 +104,8 @@ factorial_grid.list <-
   }
 
 
-#' Create a factor grid object from a data set
-#' @importFrom magrittr %>%
-#' @param data data that will be converted to a dataframe of the "factor.grid" class
+#' Create a \code{factor.grid} df from a data set
+#' @param data data that will be converted to a \code{factor.grid} dataframe
 #' @param ind_vars a character vector naming the columns to extract factor levels from
 #' @family factorial-design functions
 #' @examples
@@ -118,11 +116,13 @@ factorial_grid.list <-
 #' score  = runif(n = 4,min = 10,max = 100)
 #' )
 #'
-#' extract_factor_grid(mydata, c("factorA","factorB"),
-#'
+#' df_to_factgrid(mydata, c("factorA","factorB"),
+#' @importFrom magrittr %>%
+#' @include select_dots-function.R
+#' @include combine_factor_levels-function.R
 #' @export
 #'
-extract_factor_grid <- function(data, ind_vars) {
+df_to_factgrid <- function(data, ind_vars) {
   assertthat::validate_that(is.data.frame(data) | tibble::is.tibble(data), assertthat::has_attr(data, "names"))
   assertthat::validate_that(is.vector(ind_vars, mode = "character"))
 
@@ -186,15 +186,8 @@ extract_factor_grid <- function(data, ind_vars) {
       attr(data.020, "class") <-
         c("data.frame", "factor.grid")
       data.020
+      attr(data.020)$ind_vars(names(data.020))
 }
 
 
-
-
-
-
-
-
-factorial_grid(list("myvar1" = c("A","B","C","D"),
-                    "myvar2" = c("long","short")))
 

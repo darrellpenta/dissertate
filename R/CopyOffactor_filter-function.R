@@ -146,15 +146,13 @@ factor_filter.factor.grid <-
         dplyr::filter(!(num_lvls %in% min(dat.001$num_lvls))) %>%
         dplyr::arrange(dplyr::desc(num_lvls))
       dat.001
-    } else{
+    }
 
     dat.001 <-
       dat.001 %>%
       dplyr::select(-dplyr::contains(match = "_len")) %>%
       dplyr::select(-dplyr::contains(match = "_nm")) %>%
       dplyr::select(-dplyr::contains(match = "_form.temp"))
-    dat.001
-    }
 
     if (isTRUE(trunc_label) | missing(trunc_label)) {
       dat.001 <-
