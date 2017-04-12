@@ -23,7 +23,6 @@ Imports:
     reshape
 RoxygenNote: 6.0.1
 Collate: 
-    'CopyOfaov_forms-function.R'
     'select_dots-function.R'
     'CopyOffactor_filter-function.R'
     'aov_combine_fstats_long-function.R'
