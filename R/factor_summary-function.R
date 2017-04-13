@@ -23,7 +23,7 @@ factor_summary <- function(data,
   dplyr::bind_rows(
     dplyr::bind_cols(
       tibble::tibble("data" = grp_factor),
-      .data %>%
+      data %>%
         dplyr::summarise_at(
           .cols = "error",
           .funs = dplyr::funs(
@@ -44,9 +44,9 @@ factor_summary <- function(data,
       unlist(recursive = FALSE,
              use.names = FALSE) %>%
       lapply(function(iv_,
-                      .dat = .data,
+                      .dat = data,
                       table_len = table_len) {
-        .data %>%
+        data %>%
           dplyr::group_by_(.dots = select_dots(iv_)) %>%
           dplyr::summarise_at(
             .cols = "error",
