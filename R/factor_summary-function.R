@@ -47,12 +47,12 @@ factor_summary <- function(data,
       lapply(function(iv_,
                       dat = data,
                       table_len = table_len,
-                      dv = dv) {
+                      dv_ = dv) {
         dat %>%
           ungroup() %>%
           dplyr::group_by_(.dots = select_dots(iv_)) %>%
           dplyr::summarise_at(
-            .cols = paste0(dv),
+            .cols = paste0(dv_),
             .funs =
               dplyr::funs(
                 N = length,
