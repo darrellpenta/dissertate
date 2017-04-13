@@ -45,9 +45,10 @@ factor_summary <- function(data,
       unlist(recursive = FALSE,
              use.names = FALSE) %>%
       lapply(function(iv_,
-                      .dat = data,
-                      table_len = table_len) {
-        data %>%
+                      dat = data,
+                      table_len = table_len,
+                      dv = dv) {
+        dat %>%
           ungroup() %>%
           dplyr::group_by_(.dots = select_dots(iv_)) %>%
           dplyr::summarise_at(
