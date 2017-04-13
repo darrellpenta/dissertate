@@ -24,6 +24,7 @@ factor_summary <- function(data,
     dplyr::bind_cols(
       tibble::tibble("data" = grp_factor),
       data %>%
+        ungroup(data) %>%
         dplyr::summarise_at(
           .cols = paste0(dv),
           .funs = dplyr::funs(
@@ -47,6 +48,7 @@ factor_summary <- function(data,
                       .dat = data,
                       table_len = table_len) {
         data %>%
+          ungroup() %>%
           dplyr::group_by_(.dots = select_dots(iv_)) %>%
           dplyr::summarise_at(
             .cols = paste0(dv),
