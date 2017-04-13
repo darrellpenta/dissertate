@@ -25,7 +25,7 @@ factor_summary <- function(data,
       tibble::tibble("data" = grp_factor),
       data %>%
         dplyr::summarise_at(
-          .cols = "error",
+          .cols = paste0(dv),
           .funs = dplyr::funs(
             N = length,
             M = mean,
@@ -49,7 +49,7 @@ factor_summary <- function(data,
         data %>%
           dplyr::group_by_(.dots = select_dots(iv_)) %>%
           dplyr::summarise_at(
-            .cols = "error",
+            .cols = paste0(dv),
             .funs =
               dplyr::funs(
                 N = length,
