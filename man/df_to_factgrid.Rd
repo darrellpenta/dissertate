@@ -25,8 +25,10 @@ score  = runif(n = 4,min = 10,max = 100)
 df_to_factgrid(mydata, c("factorA","factorB"),
 }
 \seealso{
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{factor_filter.factor.grid}},
   \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 }

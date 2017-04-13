@@ -15,8 +15,10 @@ factor_grid(list("myvar1" = c("A","B","C","D"),
 "myvar2" = c("long","short")))
 }
 \seealso{
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_filter}}, \code{\link{factor_grid}}
+  \code{\link{factor_filter}}, \code{\link{factor_grid}},
+  \code{\link{factor_summary}}
 }

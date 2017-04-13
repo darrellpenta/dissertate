@@ -24,8 +24,10 @@ combine_factor_levels(x, m, FUNV = NULL, simplify, byrow)
 A vectorized version of \code{utils::combn}
 }
 \seealso{
-Other factorial-design functions: \code{\link{df_to_factgrid}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{df_to_factgrid}},
   \code{\link{factor_filter.factor.grid}},
   \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 }

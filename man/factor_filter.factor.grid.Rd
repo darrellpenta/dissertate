@@ -35,13 +35,17 @@ my_filtertgrid <- factor_filter(my_factgrid)
 )
 }
 \seealso{
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 }

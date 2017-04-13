@@ -45,23 +45,31 @@ Formula-strings for filtering a data set based on the levels of crossed factors
 Formula-strings for filtering a data set based on the levels of crossed factors
 }
 \seealso{
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_forms}},
+  \code{\link{combine_factor_levels}},
   \code{\link{df_to_factgrid}},
   \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_grid.list}}, \code{\link{factor_grid}}
+  \code{\link{factor_grid.list}},
+  \code{\link{factor_grid}}, \code{\link{factor_summary}}
 }

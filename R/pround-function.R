@@ -1,3 +1,13 @@
+#' Helper function for sweetp
+#'
+#' @param p a numeric or character p-value
+#' @param ... further arguments passed to or from other methods
+#' @return p as APA-rounded character vector
+#' @family sweetstat functions
+#' @rdname pround
+#' @export
+#'
+
 pround <- function(p) {
   round(round(p / as.numeric(paste0(
     "0.000", substr(
