@@ -12,7 +12,7 @@
 #' @export
 #'
 sweetstat<- function(stat, ...) {
-  UseMethod("sweetstat", data)
+  UseMethod("sweetstat", stat)
 }
 
 #' A vectorized vesion of the \code{sweetstat} function
@@ -69,7 +69,7 @@ sweetstat.numeric <- function(stat) {
            ifelse(nchar(
              strsplit(as.character(stat), ".", fixed = TRUE)[[1]][2]
            ) < 1, paste0(stat, "00"), paste(stat)))
-
+stat
 }
 
 #' @family sweetstat functions
@@ -114,7 +114,7 @@ sweetstat.character <- function(stat) {
            ifelse(nchar(
              strsplit(as.character(stat), ".", fixed = TRUE)[[1]][2]
            ) < 1, paste0(stat, "00"), paste(stat)))
-
+stat
 }
 
 
