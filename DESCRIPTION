@@ -25,6 +25,7 @@ Imports:
 RoxygenNote: 6.0.1
 Collate: 
     'combine_factor_levels-function.R'
+    'factor_filter_columns-function.R'
     'select_dots-function.R'
     'factor_filter-function.R'
     'factor_grid-function.R'
