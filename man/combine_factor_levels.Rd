@@ -2,7 +2,7 @@
 % Please edit documentation in R/combine_factor_levels-function.R
 \name{combine_factor_levels}
 \alias{combine_factor_levels}
-\title{A vectorized version of \code{utils::combn}}
+\title{A vectorized version ofthe combn function}
 \usage{
 combine_factor_levels(x, m, FUNV = NULL, simplify, byrow)
 }
@@ -12,6 +12,8 @@ combine_factor_levels(x, m, FUNV = NULL, simplify, byrow)
 
 \item{m}{number of elements to choose.}
 
+\item{FUNV}{a null function}
+
 \item{simplify}{logical indicating if the result should be simplified
     to an \code{\link{array}} (typically a \code{\link{matrix}}); if
     FALSE, the function returns a \code{\link{list}}.  Note that when
@@ -19,15 +21,13 @@ combine_factor_levels(x, m, FUNV = NULL, simplify, byrow)
     simply determined from \code{FUN(\var{1st combination})} (for
     efficiency reasons).  This will badly fail if \code{FUN(u)} is not of
     constant length.}
+
+\item{byrow}{passed to matrix function}
 }
 \description{
-A vectorized version of \code{utils::combn}
+A vectorized version ofthe combn function
 }
 \seealso{
-Other factorial-design functions: \code{\link{aov_forms}},
-  \code{\link{df_to_factgrid}},
-  \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}},
-  \code{\link{factor_grid}}, \code{\link{factor_summary}}
+Other factorial-design functions: \code{\link{factor_filter}},
+  \code{\link{factor_grid}}
 }

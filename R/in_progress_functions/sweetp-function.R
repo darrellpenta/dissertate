@@ -4,7 +4,6 @@
 #'
 #' @importFrom magrittr %>%
 #' @param stat a statistic to be rounded in APA style
-#' @param ... further arguments passed to or from other methods
 #' @return p value stat as APA-rounded character vector
 #' @family sweetstat functions
 #' @rdname sweetp
@@ -13,13 +12,15 @@
 #'
 #' @export
 #'
-sweetp<- function(stat, ...) {
+sweetp<- function(stat, not_as_range, snip_lead_zero) {
   UseMethod("sweetp", stat)
 }
 
 
 
 #' A vectorized vesion of the \code{sweetp} function
+#' @param not_as_range P values be returned in a range? (APA suggests a range for figures and tables in some cases)
+#' @param snip_lead_zero Should the leading zero (before the decimal) be remved? APA recommends this for numbers that cannot exceed 1.
 #' @family sweetstat functions
 #' @rdname sweetp
 #' @include pround-function.R
@@ -27,8 +28,8 @@ sweetp<- function(stat, ...) {
 #'
 sweetp.default <-
   Vectorize(
-    FUN = function(stat, ...)
-      sweetp(stat, ...),
+    FUN = function(stat)
+      sweetp(stat, not_as_range, snip_lead_zero),
     vectorize.args = c("stat"),
     SIMPLIFY = TRUE,
     USE.NAMES = FALSE
@@ -36,8 +37,7 @@ sweetp.default <-
 
 #' Sweeten an numeric vector
 #'
-#' @param not_as_range P values be returned in a range? (APA suggests a range for figures and tables in some cases)
-#' @param snip_lead_zero Should the leading zero (before the decimal) be remved? APA recommends this for numbers that cannot exceed 1.
+
 #'
 #' @family sweetstat functions
 #' @rdname sweetp

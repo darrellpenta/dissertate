@@ -1,7 +1,11 @@
-#' A vectorized version of \code{utils::combn}
+#' A vectorized version ofthe combn function
 #'
 #' @inheritParams utils::combn
+#' @inheritParams base::Vectorize
+#' @param FUNV a null function
+#' @param byrow passed to matrix function
 #' @family factorial-design functions
+#' @rdname combine_factor_levels
 #' @export
 combine_factor_levels <-
   Vectorize(function(x, m, FUNV = NULL, simplify, byrow)

@@ -4,14 +4,13 @@
 #'
 #' @importFrom magrittr %>%
 #' @param stat a statistic to be rounded in APA style
-#' @param ... further arguments passed to or from other methods
 #' @return stat as APA-rounded character vector
 #' @family sweetstat functions
 #' @include statround-function.R
 #' @rdname sweetstat
 #' @export
 #'
-sweetstat<- function(stat, ...) {
+sweetstat<- function(stat) {
   UseMethod("sweetstat", stat)
 }
 

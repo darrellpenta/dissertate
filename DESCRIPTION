@@ -1,6 +1,6 @@
 Package: dissertate
 Type: Package
-Title: Convenience functions for writing a dissertation (Cognitive Science, etc). 
+Title: Convenience functions for writing a dissertation (Cognitive Science, etc)
 Version: 0.1.1
 Authors@R: person("Darrell","Penta", role=c("aut","cre"), email = "darrellpenta@gmail.com")
 Maintainer: Darrell J. Penta <darrellpenta@gmail.com>
@@ -9,6 +9,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:
+    plyr,
     dplyr,
     stats,
     lazyeval,
@@ -23,39 +24,10 @@ Imports:
     reshape
 RoxygenNote: 6.0.1
 Collate: 
-    'select_dots-function.R'
-    'CopyOffactor_filter-function.R'
-    'aov_combine_fstats_long-function.R'
-    'aov_form-function.R'
-    'formula_column-functions.R'
-    'aov_forms-function.R'
-    'aov_fstats_combine-function.R'
-    'aov_fstats_long_to_wide-function.R'
-    'aov_fstats_table-function.R'
-    'aov_outply-function.R'
-    'aov_special_tidy-function.R'
-    'aov_sweeten-function.R'
-    'aov_to_latex-function.R'
-    'append_resids-function.R'
-    'cc-function.R'
-    'col_index-function.R'
     'combine_factor_levels-function.R'
+    'select_dots-function.R'
     'factor_filter-function.R'
     'factor_grid-function.R'
-    'standard_error-function.R'
-    'statround-function.R'
-    'sweetstat-function.R'
     'factor_summary-function.R'
-    'fs_to_dots-function.R'
-    'get_range_grt_than-function.R'
-    'labelled_x-function.R'
-    'labelled_y-function.R'
-    'now-function.R'
-    'noz-function.R'
-    'p_stars-function.R'
-    'pround-function.R'
-    'root_dir-function.R'
-    'scatter-function.R'
-    'scatter_stats-function.R'
-    'se-function.R'
-    'sweetp-function.R'
+    'standard_error-function.R'
+    'summary_stats-function.R'

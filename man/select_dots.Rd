@@ -7,18 +7,16 @@
 \alias{select_dots.list}
 \title{A convience function for programming with dplyr's select_}
 \usage{
-select_dots(data, ...)
+select_dots(data)
 
-\method{select_dots}{default}(data, ...)
+\method{select_dots}{default}(data)
 
-\method{select_dots}{vector}(data, ...)
+\method{select_dots}{vector}(data)
 
-\method{select_dots}{list}(data, ...)
+\method{select_dots}{list}(data)
 }
 \arguments{
-\item{data}{data to pass to \code{\link[dplyr]{select_}}'s .dots parameter.}
-
-\item{...}{further arguments passed to or from other methods}
+\item{data}{data to pass to selects "dots" parameter}
 }
 \value{
 a formula
@@ -26,7 +24,7 @@ a formula
 \description{
 A convience function for programming with dplyr's select_
 
-Pass a string to select_
+Pass a string to select
 
 Pass a character vector to select_
 

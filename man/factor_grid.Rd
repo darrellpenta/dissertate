@@ -3,45 +3,36 @@
 \name{factor_grid}
 \alias{factor_grid}
 \alias{factor_grid.default}
+\alias{factor_grid.list}
+\alias{factor_grid.data.frame}
 \title{Create a data frame of variable combinations for a fully-crossed factorial design}
 \usage{
-factor_grid(data, ...)
+factor_grid(data)
 
-\method{factor_grid}{default}(data, ...)
+\method{factor_grid}{default}(data)
+
+\method{factor_grid}{list}(data)
+
+\method{factor_grid}{data.frame}(data, ind_vars)
 }
 \arguments{
-\item{data}{data that will be converted to a \code{factor.grid} dataframe}
+\item{data}{data that will be converted to a factorgrid dataframe}
 
-\item{...}{further arguments passed to or from other methods}
+\item{ind_vars}{a character vector naming the columns to extract factor levels from}
 }
 \value{
-a dataframe of class "factor.grid" for passing to additional \link{factorial-design functions}
+a dataframe of class "factor.grid" for passing to additional factorial-design functions
 }
 \description{
-This the generic factor_grid function. See Details.
+This the generic factor_grid function.
 
 A vectorized vesion of the \code{factor_grid} function
-}
-\details{
-\itemize{
-  \item \code{\link{factor_grid.list}} for a named list
-  \item \code{\link{df_to_factgrid}} for a dataframe
-}
+
+Create a factor grid object from a named list of factors
+
+Create a \code{factor.grid} df from a dataframe
 }
 \seealso{
-Other factorial-design functions: \code{\link{aov_forms}},
-  \code{\link{combine_factor_levels}},
-  \code{\link{df_to_factgrid}},
-  \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}},
-  \code{\link{factor_summary}}
-
-Other factorial-design functions: \code{\link{aov_forms}},
-  \code{\link{combine_factor_levels}},
-  \code{\link{df_to_factgrid}},
-  \code{\link{factor_filter.factor.grid}},
-  \code{\link{factor_filter}},
-  \code{\link{factor_grid.list}},
-  \code{\link{factor_summary}}
+Other factorial-design functions: \code{\link{combine_factor_levels}},
+  \code{\link{factor_filter}}
 }

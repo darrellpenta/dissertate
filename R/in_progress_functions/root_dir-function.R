@@ -1,4 +1,4 @@
-#' Shortcut for specifying paths relative to root.
+#' Shortcut for specifying paths relative to root
 #'
 #' \code{root_dir} is a wrapper around \code{getwd} that appends the path-part to the location specified by the user-supplied argument.
 #'

@@ -1,7 +1,6 @@
 #' Helper function for sweetp
 #'
 #' @param p a numeric or character p-value
-#' @param ... further arguments passed to or from other methods
 #' @return p as APA-rounded character vector
 #' @family sweetstat functions
 #' @rdname pround

@@ -1,6 +1,5 @@
 #' Helper function for sweetstat
 #' @param s a number to be rounded
-#' @param ... further arguments passed to or from other methods
 #' @return a rounded numeric
 #' @family sweetstat functions
 #' @rdname statround
