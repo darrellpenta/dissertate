@@ -51,7 +51,6 @@ factor_filter.factor.grid <-
     iv <-
       c(paste(colnames(data)))
 
-
     dat.001 <-
       lapply(iv,
              function(iv.001,
@@ -124,12 +123,9 @@ factor_filter.factor.grid <-
       min(dat.001["num_lvls"])
 
     dat.001 <-
-      dat.001[dat.001$num_lvls != minimum_value,]
+      dat.001[dat.001["num_lvls"] != minimum_value,]
 
-    dat.001 <-
-      dplyr::arrange(dat.001,
-                     dplyr::desc(as.character(dat.001["num_lvls"])))
-    dat.001
+
   } else{
     dat.001 <-
       dat.001 %>%
@@ -168,6 +164,12 @@ factor_filter.factor.grid <-
 
     }
 
+    dat.001 <-
+      dplyr::arrange_(dat.001,
+                      .dots =
+                        select_dots(paste0("dplyr::desc(",names(dat.001)[2],")")))
+
+    dat.001
   attr(dat.001, "class") <- c("data.frame", "filter.grid")
 
   dat.001
