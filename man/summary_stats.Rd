@@ -4,7 +4,7 @@
 \alias{summary_stats}
 \title{Standard summary stats}
 \usage{
-summary_stats(.data, .cols, .variable)
+summary_stats(.data, .cols, .variable, ...)
 }
 \arguments{
 \item{.data}{data for which a summary is to be computed}
@@ -12,6 +12,8 @@ summary_stats(.data, .cols, .variable)
 \item{.cols}{a character vector of names to be included in summaries}
 
 \item{.variable}{variable over which summary is to be computed}
+
+\item{...}{additional arguments}
 }
 \value{
 a data frame with columns for:  N = length, M = mean, SD = sd, SE = standard_error

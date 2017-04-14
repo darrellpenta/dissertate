@@ -28,6 +28,6 @@ Collate:
     'select_dots-function.R'
     'factor_filter-function.R'
     'factor_grid-function.R'
-    'factor_summary-function.R'
     'standard_error-function.R'
     'summary_stats-function.R'
+    'factor_summary-function.R'

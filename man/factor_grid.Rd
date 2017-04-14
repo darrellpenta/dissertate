@@ -7,16 +7,18 @@
 \alias{factor_grid.data.frame}
 \title{Create a data frame of variable combinations for a fully-crossed factorial design}
 \usage{
-factor_grid(data)
+factor_grid(data, ...)
 
-\method{factor_grid}{default}(data)
+\method{factor_grid}{default}(data, ...)
 
-\method{factor_grid}{list}(data)
+\method{factor_grid}{list}(data, ...)
 
-\method{factor_grid}{data.frame}(data, ind_vars)
+\method{factor_grid}{data.frame}(data, ..., ind_vars)
 }
 \arguments{
 \item{data}{data that will be converted to a factorgrid dataframe}
+
+\item{...}{additional arguments}
 
 \item{ind_vars}{a character vector naming the columns to extract factor levels from}
 }
@@ -34,5 +36,5 @@ Create a \code{factor.grid} df from a dataframe
 }
 \seealso{
 Other factorial-design functions: \code{\link{combine_factor_levels}},
-  \code{\link{factor_filter}}
+  \code{\link{factor_filter}}, \code{\link{factor_summary}}
 }

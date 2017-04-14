@@ -6,6 +6,7 @@
 #' @param .data data for which a summary is to be computed
 #' @param .cols a character vector of names to be included in summaries
 #' @param .variable variable over which summary is to be computed
+#' @param ... additional arguments
 #' @return a data frame with columns for:  N = length, M = mean, SD = sd, SE = standard_error
 #' @family aov functions
 #' @include select_dots-function.R
@@ -14,7 +15,7 @@
 #' @export
 #'
 
-summary_stats <- function(.data, .cols, .variable) {
+summary_stats <- function(.data, .cols, .variable, ...) {
   assertthat::validate_that(
     is.data.frame(.data) |
       tibble::is.tibble(.data),
@@ -48,7 +49,7 @@ summary_stats <- function(.data, .cols, .variable) {
     x <-
       stats::sd(x) / sqrt(length(x))
   }
-
+ sd <- stats::sd
 
   data_ <-
     data_ %>%
@@ -63,8 +64,8 @@ summary_stats <- function(.data, .cols, .variable) {
 
 summary_stat <-
   Vectorize(
-    FUN = function(.data, .cols, .variable)
-      summary_stat(.data, .cols, .variable),
+    FUN = function(.data, .cols, .variable, ...)
+      summary_stat(.data, .cols, .variable, ...),
     vectorize.args = c(".data", ".variable"),
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE

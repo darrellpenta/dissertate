@@ -3,6 +3,7 @@
 #' This the generic factor_grid function.
 #'
 #' @param data data that will be converted to a factorgrid dataframe
+#' @param ... additional arguments
 #' @return a dataframe of class "factor.grid" for passing to additional factorial-design functions
 #' @family factorial-design functions
 #' @importFrom magrittr %>%
@@ -11,7 +12,7 @@
 
 #' @export
 #'
-factor_grid <- function(data) {
+factor_grid <- function(data, ...) {
   UseMethod("factor_grid", data)
 }
 
@@ -21,8 +22,8 @@ factor_grid <- function(data) {
 #'
 factor_grid.default <-
   Vectorize(
-    FUN = function(data)
-      factor_grid(data),
+    FUN = function(data, ...)
+      factor_grid(data, ...),
     vectorize.args = c("data"),
     SIMPLIFY = FALSE,
     USE.NAMES = FALSE
@@ -30,11 +31,10 @@ factor_grid.default <-
 
 #' Create a factor grid object from a named list of factors
 #'
-
 #' @rdname factor_grid
 #' @export
 factor_grid.list <-
-  function(data) {
+  function(data, ...) {
     assertthat::validate_that(is.list(data),
                               (!(is.data.frame(data))),
                               (!(tibble::is.tibble(data))))
@@ -63,7 +63,10 @@ factor_grid.list <-
           sapply(simplify = FALSE, paste, collapse = ":") %>% # paste strings
           as.data.frame()
 
-        number_of_cols <- ncol(d001.02)
+        number_of_cols <-
+          ncol(d001.02)
+        left <- NULL
+        condition <- NULL
 
         d001.02 <-
           tidyr::gather(d001.02,
@@ -84,8 +87,9 @@ factor_grid.list <-
           sep = ""
         ),
         ")"
-      ) %>%
-      stats::as.formula(.)
+      )
+    data.010 <-
+      stats::as.formula(data.010)
 
     data.011 <- #run expand grid
       lazyeval::f_eval(data.010)
@@ -97,22 +101,21 @@ factor_grid.list <-
       `names<-`(paste(names(data)))
 
     data.020 <-
-      data.011 %>%
-      as.data.frame(.) %>%
+      as.data.frame(data.011) %>%
       dplyr::mutate_if(is.factor, "as.character")
 
-    attr(data.020, "class") <- c("data.frame", "factor.grid")
+    attr(data.020, "class") <-
+      c("data.frame", "factor.grid")
     data.020
   }
 
 
 #' Create a \code{factor.grid} df from a dataframe
-
-#' @rdname factor_grid
 #' @param ind_vars a character vector naming the columns to extract factor levels from
+#' @rdname factor_grid
 #' @export
 #'
-factor_grid.data.frame <- function(data, ind_vars) {
+factor_grid.data.frame <- function(data, ..., ind_vars) {
   assertthat::validate_that(
     is.data.frame(data) |
       tibble::is.tibble(data),
@@ -136,7 +139,6 @@ factor_grid.data.frame <- function(data, ind_vars) {
 
       d001.02 <-
         combine_factor_levels(d001.01,
-                              #create matrix of levels
                               m = m:1,
                               simplify = FALSE,
                               byrow = TRUE) %>%
@@ -144,11 +146,16 @@ factor_grid.data.frame <- function(data, ind_vars) {
                recursive = FALSE) %>%
         sapply(simplify = FALSE,
                paste,
-               collapse = ":") %>% # paste strings
-        as.data.frame()
+               collapse = ":")
 
-      number_of_cols <- ncol(d001.02)
+      d001.02 <-
+        as.data.frame(d001.02)
 
+      number_of_cols <-
+        ncol(d001.02)
+
+      left <- NULL
+      condition <- NULL
       d001.02 <-
         tidyr::gather(d001.02,
                       key = left,
@@ -168,7 +175,8 @@ factor_grid.data.frame <- function(data, ind_vars) {
       ),
       ")"
     )
-  data.010 <- stats::as.formula(data.010)
+  data.010 <-
+    stats::as.formula(data.010)
 
   data.011 <- #run expand grid
     lazyeval::f_eval(data.010)
@@ -180,8 +188,7 @@ factor_grid.data.frame <- function(data, ind_vars) {
     `names<-` (paste0(ind_vars))
 
   data.020 <-
-    data.011 %>%
-    as.data.frame(.) %>%
+    as.data.frame(data.011) %>%
     dplyr::mutate_if(is.factor, "as.character")
 
   attr(data.020, "class") <-

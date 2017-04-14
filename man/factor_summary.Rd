@@ -4,20 +4,26 @@
 \alias{factor_summary}
 \title{Summary stats for factors}
 \usage{
-factor_summary(data, dv, iv, grp_factor)
+factor_summary(data, dv, iv, grp_factor, ...)
+}
+\arguments{
+\item{data}{to summarize}
+
+\item{dv}{the dependent variable}
+
+\item{iv}{a vector with the names of the independent variables}
+
+\item{grp_factor}{a grouping factor}
+
+\item{...}{additional arguments}
+}
+\value{
+a data.frame of summary stats
 }
 \description{
-@importFrom magrittr %>%
- @param data to summarize
- @param dv the dependent variable
- @param iv a vector with the names of the independent variables
- @param grp_factor a grouping factor
- @return a data.frame of summary stats
- @family factorial-design functions
- @rdname factor_summary
- @include summary_stats-function.R
- @include standard_error-function.R
- @include combine_factor_levels-function.R
- @include select_dots-function.R
- @export
+Summary stats for factors
+}
+\seealso{
+Other factorial-design functions: \code{\link{combine_factor_levels}},
+  \code{\link{factor_filter}}, \code{\link{factor_grid}}
 }
