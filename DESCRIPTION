@@ -33,3 +33,4 @@ Collate:
     'factor_summary_helpers-function.R'
     'summary_stats-function.R'
     'factor_summary-function.R'
+    'statround-function.R'

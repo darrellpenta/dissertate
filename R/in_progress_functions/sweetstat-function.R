@@ -4,6 +4,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @param stat a statistic to be rounded in APA style
+#' @param ... (ignored) passed to other methods
 #' @return stat as APA-rounded character vector
 #' @family sweetstat functions
 #' @include statround-function.R
