@@ -2,22 +2,32 @@
 % Please edit documentation in R/summary_stats-function.R
 \name{summary_stats}
 \alias{summary_stats}
+\alias{summary_stats.data.frame}
+\alias{summary_stats.default}
 \title{Standard summary stats}
 \usage{
-summary_stats(.data, .cols, .variable, ...)
+summary_stats(data, ...)
+
+\method{summary_stats}{data.frame}(data, ..., meas, cols = FALSE)
+
+\method{summary_stats}{default}(data, meas, cols, ...)
 }
 \arguments{
-\item{.data}{data for which a summary is to be computed}
-
-\item{.cols}{a character vector of names to be included in summaries}
-
-\item{.variable}{variable over which summary is to be computed}
+\item{data}{for which a summary is to be computed}
 
 \item{...}{additional arguments}
+
+\item{meas}{dependent measure to compute summaries over}
+
+\item{cols}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
 }
 \value{
 a data frame with columns for:  N = length, M = mean, SD = sd, SE = standard_error
 }
 \description{
 This is the generic version of the \code{summary_stats}
+
+Summary stats for data.frame class
+
+A vectorized version of summary_stats.data.frame
 }

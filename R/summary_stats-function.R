@@ -3,9 +3,7 @@
 #' This is the generic version of the \code{summary_stats}
 #'
 #' @importFrom magrittr %>%
-#' @param .data data for which a summary is to be computed
-#' @param .cols a character vector of names to be included in summaries
-#' @param .variable variable over which summary is to be computed
+#' @param data for which a summary is to be computed
 #' @param ... additional arguments
 #' @return a data frame with columns for:  N = length, M = mean, SD = sd, SE = standard_error
 #' @family aov functions
@@ -14,59 +12,66 @@
 #' @rdname summary_stats
 #' @export
 #'
+summary_stats <-function(data, ...){
+  UseMethod("summary_stats", data)
+}
 
-summary_stats <- function(.data, .cols, .variable, ...) {
+
+#' Summary stats for data.frame class
+#'
+#' @rdname summary_stats
+#' @param meas dependent measure to compute summaries over
+#' @param cols FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages
+#' @export
+summary_stats.data.frame <-
+  function(data, ...,meas,cols = FALSE) {
   assertthat::validate_that(
-    is.data.frame(.data) |
-      tibble::is.tibble(.data),
-    assertthat::has_attr(.data, "names")
+    is.data.frame(data) |
+      tibble::is.tibble(data),
+    assertthat::has_attr(data, "names")
   )
+  assertthat::validate_that(!(missing(meas)))
 
-  assertthat::validate_that(!(missing(.variable)))
-  assertthat::validate_that(is.vector(.variable, mode = "character"))
-
-  variable_ <-
-    .variable
-
-  if(missing(.cols)){
-    data_ <-
-      .data
-    data_
-  } else {
-    assertthat::validate_that(is.vector(.cols, mode = "character"))
-    cols_ <-
-      .cols
-    data_ <-
-      .data %>%
-      dplyr::group_by_(.dots = select_dots(cols_))
-    data_
-  }
-
-
-
+if(is.character(cols))
+{ data<-
+  dplyr::group_by_(.data = data,
+                            .dots = select_dots(cols))
+data} else {
+  data <-
+    data
+}
 
   standard_error <- function(x) {
     x <-
       stats::sd(x) / sqrt(length(x))
   }
- sd <- stats::sd
+  sd <- stats::sd
 
-  data_ <-
-    data_ %>%
-    dplyr::summarise_at(c(paste0(variable_)), .funs  = dplyr::funs(
-        N = length,
-        M = mean,
-        SD = sd,
-        SE = standard_error
-      ))
+  data_out <-
+    dplyr::summarise_at(data, c(paste0(meas)), .funs  = dplyr::funs(
+      N = length,
+      M = mean,
+      SD = sd,
+      SE = standard_error
+    ))
 
-}
+  data_out
 
-summary_stat <-
+  }
+
+
+#' A vectorized version of summary_stats.data.frame
+#' @rdname summary_stats
+#' @export
+summary_stats.default <-
   Vectorize(
-    FUN = function(.data, .cols, .variable, ...)
-      summary_stat(.data, .cols, .variable, ...),
-    vectorize.args = c(".data", ".variable"),
+    FUN = function(data, meas, cols, ...)
+      summary_stats.data.frame(data = data,
+                               ...,
+                               cols = cols,
+                               meas = meas),
+    vectorize.args = c("data", "meas"),
     SIMPLIFY = FALSE,
-    USE.NAMES = FALSE
+    USE.NAMES = TRUE
   )
+

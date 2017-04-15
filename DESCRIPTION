@@ -30,5 +30,6 @@ Collate:
     'factor_filter-function.R'
     'factor_grid-function.R'
     'standard_error-function.R'
+    'factor_summary_helpers-function.R'
     'summary_stats-function.R'
     'factor_summary-function.R'

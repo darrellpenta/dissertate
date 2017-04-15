@@ -4,14 +4,14 @@
 \alias{factor_summary}
 \title{Summary stats for factors}
 \usage{
-factor_summary(data, dv, iv, grp_factor, ...)
+factor_summary(data, meas, cols, grp_factor, ...)
 }
 \arguments{
-\item{data}{to summarize}
+\item{data}{for which a summary is to be computed}
 
-\item{dv}{the dependent variable}
+\item{meas}{dependent measure to compute summaries over}
 
-\item{iv}{a vector with the names of the independent variables}
+\item{cols}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
 
 \item{grp_factor}{a grouping factor}
 
