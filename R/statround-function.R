@@ -1,4 +1,4 @@
-#' Helper function for sweetstat
+#' statround: Helper functions for sweetstat
 #'
 #' @param .stat a number to be rounded
 #' @param .rnd_digit number to pass to <code>round</code>; defaults to 3
@@ -17,7 +17,7 @@ statround <- function(.stat, ...) {
 #' @rdname statround
 #' @export
 statround.numeric <- function(.stat, ..., .rnd_digit = 3) {
-  assertthat::validate_that(is.character(.stat))
+  assertthat::validate_that(is.numeric(.stat))
 
   rnd_digit <-
     .rnd_digit
@@ -41,9 +41,6 @@ statround.numeric <- function(.stat, ..., .rnd_digit = 3) {
     )), digits = rnd_digit))
   stat_out
 }
-
-
-
 
 
 #' Pass a numeric string to statround
@@ -87,5 +84,3 @@ statround.default <-
     vectorize.args = c(".stat"),
     SIMPLIFY = FALSE
   )
-
-

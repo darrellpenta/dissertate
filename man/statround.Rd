@@ -5,7 +5,7 @@
 \alias{statround.numeric}
 \alias{statround.character}
 \alias{statround.default}
-\title{Helper function for sweetstat}
+\title{statround: Helper functions for sweetstat}
 \usage{
 statround(.stat, ...)
 
@@ -26,11 +26,15 @@ statround(.stat, ...)
 a rounded numeric
 }
 \description{
-Helper function for sweetstat
+statround: Helper functions for sweetstat
 
 Pass a numeric value to statround
 
 Pass a numeric string to statround
 
 Vectorized statround
+}
+\seealso{
+Other sweetstat functions: \code{\link{pround}},
+  \code{\link{sweetround}}, \code{\link{sweetstat}}
 }
