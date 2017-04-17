@@ -14,6 +14,12 @@ sweetround <- function(.stat, rnd_digit, ...){
 options(scipen = 999)
 assertthat::validate_that(is.numeric(.stat))
 
+
+p_dots <-  pryr::named_dots(...)
+ifelse(length(p_dots) == 0,
+       p_dots <- NULL,
+       lapply(p_dots, eval, parent.frame()))
+
 round_digit <-
   ifelse(missing(rnd_digit), 2L, as.integer(rnd_digit))
 

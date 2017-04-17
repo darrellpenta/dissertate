@@ -39,5 +39,6 @@ Default method for sweetening a statistic
 }
 \seealso{
 Other sweetstat functions: \code{\link{pround}},
-  \code{\link{statround}}, \code{\link{sweetround}}
+  \code{\link{statround}}, \code{\link{sweetpround}},
+  \code{\link{sweetp}}, \code{\link{sweetround}}
 }

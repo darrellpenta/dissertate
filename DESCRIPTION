@@ -21,9 +21,10 @@ Imports:
     utils,
     magrittr,
     stringr,
-    reshape
+    reshape,
+    pryr
 RoxygenNote: 6.0.1
-Collate: 
+Collate:
     'combine_factor_levels-function.R'
     'factor_filter_columns-function.R'
     'select_dots-function.R'
@@ -35,5 +36,7 @@ Collate:
     'factor_summary-function.R'
     'pround-function.R'
     'statround-function.R'
+    'sweetpround-function.R'
+    'sweetp-function.R'
     'sweetround-function.R'
     'sweetstat-function.R'

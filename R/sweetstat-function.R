@@ -21,12 +21,13 @@ sweetstat <- function(.stat, ...) {
 #' @rdname sweetstat
 #' @export
 sweetstat.numeric <- function(.stat, ...) {
+
   if (length(.stat) > 1) {
 .stat <-
       sapply(.stat,
              MARGIN = 2,
              sweetstat,
-             ...)
+             ... = ...)
 
   } else{
     .stat <-
