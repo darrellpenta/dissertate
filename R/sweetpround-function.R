@@ -20,7 +20,8 @@ sweetpround <-
            ...) {
     options(scipen = 999)
 
-    assertthat::validate_that(is.numeric(.stat), .stat >= 0)
+    if(!is.na(.stat)) assertthat::validate_that(is.numeric(.stat), .stat >= 0)
+
     p_dots <-
       pryr::named_dots(...)
     lapply(p_dots, eval, parent.frame())
