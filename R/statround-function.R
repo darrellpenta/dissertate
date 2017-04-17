@@ -18,6 +18,9 @@ statround <- function(.stat, ...) {
 #' @export
 statround.numeric <- function(.stat, ..., .rnd_digit = 3) {
   assertthat::validate_that(is.numeric(.stat))
+  stat_dots <-
+    pryr::named_dots(...)
+  lapply(stat_dots, eval, parent.frame())
 
   rnd_digit <-
     .rnd_digit
@@ -48,6 +51,9 @@ statround.numeric <- function(.stat, ..., .rnd_digit = 3) {
 #' @export
 statround.character <- function(.stat, ..., .rnd_digit = 3) {
       assertthat::validate_that(is.character(.stat))
+  stat_dots <-
+    pryr::named_dots(...)
+  lapply(stat_dots, eval, parent.frame())
 
    rnd_digit <-
         .rnd_digit
