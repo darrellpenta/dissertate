@@ -21,6 +21,5 @@ Sweeten a statistic: Helper for Stat Sweet
 }
 \seealso{
 Other sweetstat functions: \code{\link{pround}},
-  \code{\link{statround}}, \code{\link{sweetpround}},
-  \code{\link{sweetp}}, \code{\link{sweetstat}}
+  \code{\link{statround}}, \code{\link{sweetpround}}
 }

@@ -181,12 +181,12 @@ if(missing(select_column)) {
 
   data_out <-
     tidyr::unite(data_out,
-                 "filter_f",
+                 "filter_form",
                  dplyr::contains(match = "_form.temp"),
                  sep = " & ")
 
   data_out<-
-    stringr::str_c(data_out$filter_f)
+    stringr::str_c(data_out$filter_form)
 
     }
 

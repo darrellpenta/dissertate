@@ -2,18 +2,17 @@
 % Please edit documentation in R/aov_form_helpers-function.R
 \name{aov_formulate}
 \alias{aov_formulate}
-\alias{aov_formulate.default}
 \alias{aov_formulate.between}
 \alias{aov_formulate.within}
 \alias{aov_terms_col}
 \alias{iv_between_col}
 \alias{aov_vars_col}
 \alias{aov_select_col}
+\alias{aov_index_col}
+\alias{aov_clean_cols}
 \title{AOV form helpers}
 \usage{
 aov_formulate(.data, ...)
-
-\method{aov_formulate}{default}(.data, .dep_var, .grp_var, ...)
 
 \method{aov_formulate}{between}(.data, ..., .dep_var, .grp_var, .btw_var)
 
@@ -26,6 +25,10 @@ iv_between_col(.data, .btw_var, ...)
 aov_vars_col(.data, .rm_col = FALSE, ...)
 
 aov_select_col(.data, .dep_var, .grp_var, ...)
+
+aov_index_col(.data, .dep_var, .grp_var, ...)
+
+aov_clean_cols(.data, ...)
 }
 \arguments{
 \item{.data}{a  .dataframe}

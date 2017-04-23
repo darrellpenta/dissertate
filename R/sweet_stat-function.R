@@ -6,27 +6,27 @@
 #' @param .stat a numeric value representing a statistic
 #' @param ... pass "rnd_digit" to set digits (defaults to 2)
 #' @return stat as APA-rounded character vector
-#' @family sweetstat functions
+#' @family sweet_stat functions
 #' @include statround-function.R
 #' @include sweetround-function.R
-#' @rdname sweetstat
+#' @rdname sweet_stat
 #' @export
 #'
-sweetstat <- function(.stat, ...) {
-  UseMethod("sweetstat", .stat)
+sweet_stat <- function(.stat, ...) {
+  UseMethod("sweet_stat", .stat)
 }
 
 
-#' Pass a numeric  value to sweetstat
-#' @rdname sweetstat
+#' Pass a numeric  value to sweet_stat
+#' @rdname sweet_stat
 #' @export
-sweetstat.numeric <- function(.stat, ...) {
+sweet_stat.numeric <- function(.stat, ...) {
 
   if (length(.stat) > 1) {
 .stat <-
       sapply(.stat,
              MARGIN = 2,
-             sweetstat,
+             sweet_stat,
              ... = ...)
 
   } else{
@@ -36,15 +36,15 @@ sweetstat.numeric <- function(.stat, ...) {
   }
 }
 
-#' Pass a numeric string value to sweetstat
-#' @rdname sweetstat
+#' Pass a numeric string value to sweet_stat
+#' @rdname sweet_stat
 #' @export
-sweetstat.character <- function(.stat, ...) {
+sweet_stat.character <- function(.stat, ...) {
   if (length(.stat) > 1) {
     .stat <-
       sapply(as.numeric(.stat),
              MARGIN = 2,
-             sweetstat,
+             sweet_stat,
              ...)
     .stat
   } else{
@@ -56,21 +56,21 @@ sweetstat.character <- function(.stat, ...) {
 
 
 
-#' Pass a integer  value to sweetstat
-#' @rdname sweetstat
+#' Pass a integer  value to sweet_stat
+#' @rdname sweet_stat
 #' @export
-sweetstat.integer <- function(.stat, ...) {
+sweet_stat.integer <- function(.stat, ...) {
   .stat <-
     as.numeric(.stat)
-  NextMethod("sweetstat")
+  NextMethod("sweet_stat")
 
 }
 
 
 #' Default method for sweetening a statistic
-#' @rdname sweetstat
+#' @rdname sweet_stat
 #' @export
-sweetstat.default <- function(.stat, ...) {
+sweet_stat.default <- function(.stat, ...) {
 
 if (is.list(.stat)) {
   if("data.frame" %in% attr(.stat, "class")){
@@ -83,6 +83,6 @@ if (is.list(.stat)) {
         lapply(as.numeric(.stat), sweetround,...)
     }
   } else {
-    NextMethod("sweetstat")  }
+    NextMethod("sweet_stat")  }
 }
 

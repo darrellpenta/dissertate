@@ -41,6 +41,6 @@ Collate:
     'pround-function.R'
     'statround-function.R'
     'sweetpround-function.R'
-    'sweetp-function.R'
+    'sweet_p-function.R'
     'sweetround-function.R'
-    'sweetstat-function.R'
+    'sweet_stat-function.R'

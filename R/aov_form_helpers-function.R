@@ -17,16 +17,6 @@ aov_formulate <- function(.data, ...) {
 
 #' @rdname aov_form_helpers
 #' @export
-#'
-aov_formulate.default <-
-  Vectorize(function(.data, .dep_var, .grp_var, ... )
-    aov_formulate(.data, .dep_var, .grp_var, ...),
-    vectorize.args = c(".data",".dep_var", ".grp_var"))
-
-
-
-#' @rdname aov_form_helpers
-#' @export
 
 aov_formulate.between <- function(.data,
                                   ...,
@@ -73,9 +63,9 @@ aov_formulate.between <- function(.data,
                 sep = " ~ "),
           .data$error_term,
           sep = " + ")
-  .data$aov_formula <- aov_formula
+  .data$aov_form <- aov_formula
   .data
-  }
+}
 
 
 
@@ -107,7 +97,7 @@ aov_formulate.within <- function(.data,
                 sep = " ~ "),
           .data$error_term,
           sep = " + ")
-  .data$aov_formula <- aov_formula
+  .data$aov_form <- aov_formula
   .data
 
 }
@@ -121,8 +111,7 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
     at_dots <-
       pryr::named_dots(...)
     lapply(at_dots, eval, parent.frame())
-    orig_dat <- .data
-    .data <-
+    terms_cols <-
       .data  %>%
       dplyr::bind_rows() %>%
       dplyr::select_(.dots =
@@ -135,13 +124,11 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
                          collapse = ","
                        )))
 
-    orig_dat <-
-      dplyr::bind_cols(orig_dat, .data)
-    class(orig_dat) <- append(class(orig_dat), "within")
-    orig_dat
+    class(.data) <- append(class(.data), "within")
+    .data
   } else {
-    orig_dat <- .data
-    .data %>%
+    terms_cols <-
+      .data %>%
       dplyr::bind_rows() %>%
       dplyr::select_(.dots =
                        sweet_dots(sapply(
@@ -151,10 +138,9 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
                          paste,
                          collapse = ","
                        )))
-    orig_dat <-
-      dplyr::bind_cols(orig_dat, .data)
-    class(orig_dat) <- append(class(orig_dat), "within")
-    orig_dat
+
+    class(.data) <- append(class(.data), "within")
+    .data
   }
 }
 
@@ -281,4 +267,52 @@ aov_select_col <-
                    sep = ""),
              ")")
 
+
+    .data$select_form <-
+      select_data_out
+    .data
   }
+
+#' @rdname aov_form_helpers
+#' @export
+aov_index_col <- function(.data, .dep_var, .grp_var, ...) {
+  i_dots <-
+    pryr::named_dots(...)
+
+  lapply(i_dots, eval, parent.frame())
+
+
+  .data <-
+    tibble::rownames_to_column(.data, "set_number")
+
+  set_id <- paste(toupper(.grp_var), toupper(.dep_var), "_")
+
+  .data$set_id <-
+    set_id
+
+  .data
+
+}
+
+
+
+#' @rdname aov_form_helpers
+#' @export
+aov_clean_cols <- function(.data, ...) {
+  cc_dots <-
+    pryr::named_dots(...)
+
+  lapply(cc_dots, eval, parent.frame())
+  .data <- #drops len (unneeded)
+    .data %>%
+    dplyr::select(-dplyr::contains(match = "_len")) %>%
+    dplyr::select(-dplyr::contains(match = "_nm")) %>%
+    dplyr::select(-dplyr::contains(match = "_form.temp")) %>%
+    dplyr::select(-dplyr::contains(match = "_vars_form")) %>%
+    dplyr::select(-dplyr::contains(match = "_denom")) %>%
+    dplyr::select(-dplyr::contains(match = "_between")) %>%
+    dplyr::select(-dplyr::contains(match = "aov_fixed_form")) %>%
+    dplyr::select(-dplyr::contains(match = "error_term"))
+
+  .data
+}

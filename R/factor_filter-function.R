@@ -112,13 +112,13 @@ factor_filter.factor.grid <-
       as.data.frame(dat.001) %>%
       dplyr::mutate(num_lvls = 0L,
                     label = NA_character_,
-                    filter_f = NA_character_)
+                    filter_form = NA_character_)
 
     dat.001["num_lvls"] <-
       ff_number_levels_col(dat.001)
     dat.001["label"] <-
       ff_label_col(dat.001)
-    dat.001["filter_f"] <-
+    dat.001["filter_form"] <-
       ff_filter_f_col(dat.001)
 
   if (isTRUE(.for_aov) | missing(.for_aov)) {

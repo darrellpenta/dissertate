@@ -5,21 +5,21 @@
 #' @importFrom magrittr %>%
 #' @inheritParams sweetpround
 #' @return stat as APA-rounded character vector
-#' @family sweetstat functions
+#' @family sweet_stat functions
 #' @include statround-function.R
 #' @include sweetpround-function.R
-#' @rdname sweetp
+#' @rdname sweet_p
 #' @export
 #'
-sweetp <- function(.stat, ...) {
-  UseMethod("sweetp", .stat)
+sweet_p <- function(.stat, ...) {
+  UseMethod("sweet_p", .stat)
 }
 
 
-#' Pass a numeric  value to sweetp
-#' @rdname sweetp
+#' Pass a numeric  value to sweet_p
+#' @rdname sweet_p
 #' @export
-sweetp.numeric <- function(.stat, ...) {
+sweet_p.numeric <- function(.stat, ...) {
   p_dots <-  pryr::named_dots(...)
   lapply(p_dots, eval, parent.frame())
 
@@ -39,10 +39,10 @@ sweetp.numeric <- function(.stat, ...) {
   }
 }
 
-#' Pass a numeric string value to sweetp
-#' @rdname sweetp
+#' Pass a numeric string value to sweet_p
+#' @rdname sweet_p
 #' @export
-sweetp.character <- function(.stat, ...) {
+sweet_p.character <- function(.stat, ...) {
   p_dots <-  pryr::named_dots(...)
   lapply(p_dots, eval, parent.frame())
 
@@ -64,24 +64,24 @@ sweetp.character <- function(.stat, ...) {
 
 
 
-#' Pass a integer  value to sweetp
-#' @rdname sweetp
+#' Pass a integer  value to sweet_p
+#' @rdname sweet_p
 #' @export
-sweetp.integer <- function(.stat, ...) {
+sweet_p.integer <- function(.stat, ...) {
   p_dots <-  pryr::named_dots(...)
   lapply(p_dots, eval, parent.frame())
 
   .stat <-
     as.numeric(.stat)
-  NextMethod("sweetp")
+  NextMethod("sweet_p")
 
 }
 
 
 #' Default method for sweetening a statistic
-#' @rdname sweetp
+#' @rdname sweet_p
 #' @export
-sweetp.default <- function(.stat, ...) {
+sweet_p.default <- function(.stat, ...) {
   p_dots <-  pryr::named_dots(...)
   lapply(p_dots, eval, parent.frame())
 
@@ -98,6 +98,6 @@ sweetp.default <- function(.stat, ...) {
         lapply(as.numeric(.stat), sweetpround,... = ... )
     }
   } else {
-    NextMethod("sweetp")  }
+    NextMethod("sweet_p")  }
 }
 
