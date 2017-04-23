@@ -9,7 +9,7 @@
 #' @rdname factor_summary
 #' @include summary_stats-function.R
 #' @include factor_summary_helpers-function.R
-#' @include select_dots-function.R
+#' @include sweet_dots-function.R
 #' @include standard_error-function.R
 #' @export
 #'
@@ -44,7 +44,7 @@ factor_summary <- function(data, meas, cols, grp_factor,  ...) {
     summary_out <-
       dplyr::arrange_(summary_out,
                       .dots =
-                        select_dots(paste0("dplyr::desc(",names(summary_out)[2],")")))
+                        sweet_dots(paste0("dplyr::desc(",names(summary_out)[2],")")))
 
     summary_out
   } else {
@@ -72,7 +72,7 @@ factor_summary <- function(data, meas, cols, grp_factor,  ...) {
         summary_out <-
           dplyr::arrange_(summary_out,
                           .dots =
-                            select_dots(paste0("dplyr::desc(",names(summary_out)[2],")")))
+                            sweet_dots(paste0("dplyr::desc(",names(summary_out)[2],")")))
 
         summary_out
       })

@@ -7,7 +7,7 @@
 #' @return a dataframe of class "factor.grid" for passing to additional factorial-design functions
 #' @family factorial-design functions
 #' @importFrom magrittr %>%
-#' @include select_dots-function.R
+#' @include sweet_dots-function.R
 #' @include combine_factor_levels-function.R
 
 #' @export
@@ -131,7 +131,7 @@ factor_grid.data.frame <- function(data, ..., ind_vars) {
 
       d001.01 <-
         d %>%
-        dplyr::select_(.dots = select_dots(iv)) %>%
+        dplyr::select_(.dots = sweet_dots(iv)) %>%
         unique()
 
       m <-

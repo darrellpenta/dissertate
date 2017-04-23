@@ -1,29 +1,33 @@
 #' A convience function for programming with dplyr's select_
 #' @importFrom magrittr %>%
 #' @importFrom stats as.formula
-#' @param data data to pass to selects "dots" parameter
+#' @param .data data to pass to selects "dots" parameter
+#' @param ... ignored now
 #' @return a formula
 #' @rdname select_dots
 #' @family SE dplyr convenience functions
 #' @export
 #'
-select_dots <- function(data) {
-  UseMethod("select_dots", data)
+select_dots <- function(.data, ...) {
+  UseMethod("select_dots", .data)
 }
 
 
 #' Pass a string to select
 #'
 #' @rdname select_dots
-
 #' @export
 
 select_dots.default <-
-  function(data) {
-    assertthat::is.string(data)
+  function(.data, ...) {
+    assertthat::is.string(.data, ...)
+
+    sel_dots <-
+      pryr::named_dots(...)
+    lapply(sel_dots, eval, parent.frame())
 
     data_out <-
-    paste("~", data, sep = "") %>%
+    paste("~", .data, sep = "") %>%
       lapply(FUN = stats::as.formula)
     data_out<-
       lazyeval::as_f_list(data_out) %>%
@@ -37,10 +41,14 @@ select_dots.default <-
 #' @export
 #'
 select_dots.vector <-
-  function(data) {
-    assertthat::validate_that(is.vector(data, mode = "character"))
+  function(.data, ...) {
+    sel_dots <-
+      pryr::named_dots(...)
+    lapply(sel_dots, eval, parent.frame())
+
+    assertthat::validate_that(is.vector(.data, mode = "character"))
     data_out <-
-    paste("~", data, sep = "") %>%
+    paste("~", .data, sep = "") %>%
       lapply(stats::as.formula)
     data_out <-
       lazyeval::as_f_list(data_out) %>%
@@ -54,10 +62,14 @@ select_dots.vector <-
 #' @export
 #'
 select_dots.list <-
-  function(data) {
-  assertthat::validate_that(is.list(data))
+  function(.data, ...) {
+  assertthat::validate_that(is.list(.data))
+    sel_dots <-
+      pryr::named_dots(...)
+    lapply(sel_dots, eval, parent.frame())
+
   data_out<-
-    lapply(data,
+    lapply(.data,
          function(x) {
            assertthat::validate_that(assertthat::is.string(x))
            x <- paste("~", x, sep = "")

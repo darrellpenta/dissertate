@@ -4,7 +4,7 @@
 #' @param ... ignored arguments to other functions
 #' @rdname factor_summary_helpers
 #' @include combine_factor_levels-function.R
-#' @include select_dots-function.R
+#' @include sweet_dots-function.R
 #' @include standard_error-function.R
 
 #' Summarize with subsets

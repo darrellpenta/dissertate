@@ -5,11 +5,11 @@
 #' @param .data a  .dataframe
 #' @param ... further arguments passed to or from other methods
 #' @param .dep_var a vector naming the depend. var.
-#' @param .btwn_var an optional vector naming the between-subjects variable
+#' @param .btw_var an optional vector naming the between-subjects variable
 #' @param .grp_var an optional grouping factor
 #' @return a data.frame with a  class attribute for passing to additional
 #' @family factorial-design functions
-#' @include formula_column-functions.R
+#' @include aov_form_helpers-function.R
 #' @include select_dots-function.R
 #' @rdname aov_form_grid
 #' @export
@@ -26,7 +26,7 @@ aov_form_grid <- function(.data, ...) {
 #' @export
 
 aov_form_grid.filter.grid <-
-  function(.data, ..., .dep_var, .grp_var, .btwn_var = FALSE) {
+  function(.data, ..., .dep_var, .grp_var, .btw_var = FALSE) {
     options(stringsAsFactors = FALSE)
 
     assertthat::validate_that(
@@ -40,31 +40,31 @@ aov_form_grid.filter.grid <-
     lapply(afg_dots, eval, parent.frame())
 
     # Prepare between-IV columns for ANOVA formula ----------------------------
-    if (is.character(.btwn_var) & !(isTRUE(.btwn_var))) {
+    if (is.character(.btw_var) & !(isTRUE(.btw_var))) {
 
       .data$iv_between <-
-        iv_between_col(.data, .btwn_var)
+        iv_between_col(.data, .btw_var)
       .data$aov_fixed_form <-
-        aov_vars_col(.data)
+        aov_vars_col(.data, .rm_col = FALSE)
       .data$aov_error_denom <-
-        aov_vars_col(.data, .btwn_var)
+        aov_vars_col(.data, .btw_var)
 
       .data <-
-        aov_terms_col(.data, .btwn_var = .btwn_var)
+        aov_terms_col(.data, .btw_var = .btw_var)
       .data<-
-        aov_formulate(.data, .dep_var = .dep_var, .grp_var = .grp_var, .btwn_var = .btwn_var)
+        aov_formulate(.data, .dep_var = .dep_var, .grp_var = .grp_var, .btw_var = .btw_var)
       .data
-      } else  {
+    } else  {
       .data$aov_fixed_form <-
-        aov_vars_col(.data)
+        aov_vars_col(.data, .rm_col = FALSE)
       .data$aov_error_denom <-
-        aov_vars_col(.data)
+        aov_vars_col(.data, .rm_col = FALSE)
       .data <-
         aov_terms_col(.data)
       .data<-
         aov_formulate(.data, .dep_var = .dep_var, .grp_var = .grp_var)
     }
-}
+  }
 #'     .data$select_formula <-
 #'       aov_select_col(
 #'         select_data = .data,
@@ -103,7 +103,7 @@ aov_form_grid.filter.grid <-
 #'       dplyr::mutate(.dep_var = paste0(.dep_var))
 #'
 #'     data <-
-#'       if (isTRUE(use_btwn_var)) {
+#'       if (isTRUE(use_btw_var)) {
 #'         data %>%
 #'           dplyr::select(-dplyr::contains(match = "_between"))
 #'       } else{

@@ -35,6 +35,7 @@ Create a factor grid object from a named list of factors
 Create a \code{factor.grid} df from a dataframe
 }
 \seealso{
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_form_grid}},
+  \code{\link{combine_factor_levels}},
   \code{\link{factor_filter}}, \code{\link{factor_summary}}
 }

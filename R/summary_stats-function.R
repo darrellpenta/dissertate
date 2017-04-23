@@ -7,7 +7,7 @@
 #' @param ... additional arguments
 #' @return a data frame with columns for:  N = length, M = mean, SD = sd, SE = standard_error
 #' @family aov functions
-#' @include select_dots-function.R
+#' @include sweet_dots-function.R
 #' @include standard_error-function.R
 #' @rdname summary_stats
 #' @export
@@ -35,7 +35,7 @@ summary_stats.data.frame <-
 if(is.character(cols))
 { data<-
   dplyr::group_by_(.data = data,
-                            .dots = select_dots(cols))
+                            .dots = sweet_dots(cols))
 data} else {
   data <-
     data

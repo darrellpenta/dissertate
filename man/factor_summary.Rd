@@ -24,6 +24,7 @@ a data.frame of summary stats
 Summary stats for factors
 }
 \seealso{
-Other factorial-design functions: \code{\link{combine_factor_levels}},
+Other factorial-design functions: \code{\link{aov_form_grid}},
+  \code{\link{combine_factor_levels}},
   \code{\link{factor_filter}}, \code{\link{factor_grid}}
 }

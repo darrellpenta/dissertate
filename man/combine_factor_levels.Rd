@@ -28,6 +28,7 @@ combine_factor_levels(x, m, FUNV = NULL, simplify, byrow)
 A vectorized version ofthe combn function
 }
 \seealso{
-Other factorial-design functions: \code{\link{factor_filter}},
-  \code{\link{factor_grid}}, \code{\link{factor_summary}}
+Other factorial-design functions: \code{\link{aov_form_grid}},
+  \code{\link{factor_filter}}, \code{\link{factor_grid}},
+  \code{\link{factor_summary}}
 }

@@ -24,10 +24,14 @@ Imports:
     reshape,
     pryr
 RoxygenNote: 6.0.1
-Collate:
-    'combine_factor_levels-function.R'
-    'factor_filter_columns-function.R'
+Collate: 
     'select_dots-function.R'
+    'dots_maker-function.R'
+    'sweet_dots-function.R'
+    'aov_form_helpers-function.R'
+    'aov_form_grid-function.R'
+    'combine_factor_levels-function.R'
+    'factor_filter_helpers-function.R'
     'factor_filter-function.R'
     'factor_grid-function.R'
     'standard_error-function.R'
