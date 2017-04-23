@@ -2,13 +2,16 @@
 % Please edit documentation in R/aov_form_grid-function.R
 \name{aov_form_grid}
 \alias{aov_form_grid}
-\alias{aov_form_grid.filter.grid}
+\alias{aov_form_grid_generate}
+\alias{aov_form_grid.default}
 \title{Create AOV formulas from a filter.grid}
 \usage{
 aov_form_grid(.data, ...)
 
-\method{aov_form_grid}{filter.grid}(.data, ..., .dep_var, .grp_var,
-  .btw_var = FALSE)
+aov_form_grid_generate(.data, ..., .dep_var, .grp_var, .btw_var = FALSE)
+
+\method{aov_form_grid}{default}(.data, .dep_var, .grp_var, .btw_var = FALSE,
+  ...)
 }
 \arguments{
 \item{.data}{a  .dataframe}
@@ -26,6 +29,8 @@ a data.frame with a  class attribute for passing to additional
 }
 \description{
 Creates a dataframe of formulas for aovs from a filter grid
+
+Create ANOVA formulas from a filter.grid data frame
 
 Create ANOVA formulas from a filter.grid data frame
 }

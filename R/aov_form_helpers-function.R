@@ -262,8 +262,8 @@ aov_select_col <-
         .dep_var,
         .grp_var)
     select_data_out <-
-      paste0("~list(",
-             paste("~", select_data_out, collapse = ",",
+      paste0("list(",
+             paste("~",select_data_out, collapse = ",",
                    sep = ""),
              ")")
 
@@ -285,10 +285,15 @@ aov_index_col <- function(.data, .dep_var, .grp_var, ...) {
   .data <-
     tibble::rownames_to_column(.data, "set_number")
 
-  set_id <- paste(toupper(.grp_var), toupper(.dep_var), "_")
-
+  set_id <- paste(toupper(.grp_var), toupper(.dep_var), sep = "_")
+  group_id <- paste(.grp_var)
+  dep_var <- paste(.dep_var)
   .data$set_id <-
     set_id
+  .data$group_id <-
+    group_id
+  .data$dep_var <-
+    dep_var
 
   .data
 
@@ -316,3 +321,4 @@ aov_clean_cols <- function(.data, ...) {
 
   .data
 }
+

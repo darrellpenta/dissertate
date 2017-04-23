@@ -173,8 +173,6 @@ factor_filter.factor.grid <-
                       .dots =
                         sweet_dots(paste0("dplyr::desc(",names(dat.001)[2],")")))
 
-    dat.001
-  attr(dat.001, "class") <- c("data.frame", "filter.grid")
 
   dat.001
 
