@@ -20,6 +20,12 @@ aov_run <-
     ar_dots <-
       pryr::named_dots(...)
     lapply(ar_dots, eval, parent.frame())
+if(is.list(.data) & !"data.frame" %in% attr(.data,"class")){
+  .data <-
+    .data[.spec$group_id[1]] %>%
+    dplyr::bind_rows()
+    .data
+}
 
     # dat_filter <- sweet
     #   list(paste0("~", .spec$filter_form)) %>%
@@ -35,11 +41,8 @@ aov_run <-
     aov_out <-
     stats::aov(lazyeval::f_eval( ~ lazyeval::uqf(stats::as.formula(.spec$aov_form))), data = .data)
     aov_out <-
-      sweet_tidy(aov_out) %>%
-      dplyr::ungroup() %>%
-      dplyr::mutate_at(c("mse","f"),"sweet_stat") %>%
-      dplyr::mutate_at(c("p"),"sweet_p")
-
-  }
+      sweet_tidy(aov_out)
+    aov_out
+    }
 
 
