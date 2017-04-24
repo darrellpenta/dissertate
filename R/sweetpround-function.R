@@ -32,7 +32,7 @@ sweetpround <-
     stat <- .stat
 
     if (isTRUE(interval)) {
-      stat_range = findInterval(stat, c(0, 0.001, 0.01, 0.05, 0.1, 0.99))
+      stat_range = findInterval(stat, c(0, 0.001, 0.01, 0.05, 0.1, 99 ))
 
       codes = c("< .001",
                 "< .01",
@@ -48,11 +48,11 @@ sweetpround <-
         ifelse(is.na(stat),
                NA_character_, ifelse(
                  stat == "",
-                 "",
+                 "",ifelse(stat >.99,as.character("1.00"),
                  ifelse(
                    0.0 <= stat & stat <= 0.0009999,
                    as.character("0.001"),
-                   as.character(statround(stat, rnd_digit = round_digit))
+                   as.character(statround(stat, rnd_digit = round_digit)))
                  )
                ))
 
