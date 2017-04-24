@@ -36,5 +36,5 @@ Vectorized pround
 }
 \seealso{
 Other sweetstat functions: \code{\link{statround}},
-  \code{\link{sweetpround}}, \code{\link{sweetround}}
+  \code{\link{sweetpround}}, \code{\link{swtrnd_special}}
 }

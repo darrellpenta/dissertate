@@ -10,32 +10,40 @@
 #' @rdname sweet_tidy
 #' @export
 
-sweet_tidy <- function(.data){
+sweet_tidy <- function(.data) {
+  assertthat::validate_that(class(.data)[1] == "aovlist")
+  if (names(.data[1]) == "(Intercept)") {
+    aov_res <- .data[-1]
+    aov_res
+  } else{
+    aov_res <- .data
+    aov_res
+  }
+  aov_res_id <-
+    aov_res %>%
+    lapply(FUN = broom::tidy) %>%
+    lapply(dplyr::bind_rows) %>%
+    plyr::ldply(.fun = dplyr::bind_rows) %>%
+    tibble::as_tibble()
+  colnames(aov_res_id)[1] <- "id"
 
-    assertthat::validate_that(class(.data)[1] == "aovlist")
-      if (names(.data[1]) == "(Intercept)") {
-        aov_res <- .data[-1]
-        aov_res
-      } else{
-        aov_res <- .data
-        aov_res
-      }
-      aov_res_id <-
-        aov_res %>%
-        lapply(FUN = broom::tidy) %>%
-        lapply(dplyr::bind_rows) %>%
-        plyr::ldply(.fun = dplyr::bind_rows) %>%
-        tibble::as_tibble()
-      colnames(aov_res_id)[1] <-"id"
+  aov_res_id <-
+    aov_res_id[, !(names(aov_res_id) %in% "sumsq")]
+  aov_res_id$stars <- apply(aov_res_id[, c("p.value")], MARGIN = 1, FUN = p_stars)
+  aov_res_id$mse <- aov_res_id$meansq
+  aov_res_id$f <- aov_res_id$statistic
+  aov_res_id$p <- aov_res_id$p.value
 
-      stars <-apply(aov_res_id[,c("p.value")], MARGIN=1, FUN = p_stars)
+  aov_res_id<-aov_res_id[,sapply(names(aov_res_id), FUN=function(x){x %in% c("main_number","set_number","set_id","label","group_id","id","term","df","mse","f","p" ,"stars")})]
+  aov_res_id
+}
+# aov_out <-
+#   aov_out %>%
+#   dplyr::arrange_(.dots = sweet_dots(c( "main_number", "set_number")))
 
-      aov_res_id[,c("meansq","statistic")] <-
-        apply(aov_res_id[,c("meansq","statistic")],MARGIN=1,FUN =sweet_stat)
-      aov_res_id[,c("p.value")] <-apply(aov_res_id[,c("p.value")], MARGIN=1, FUN =sweet_p)
-      aov_res_id <-
-        aov_res_id[, !(names(aov_res_id) %in% "sumsq")]
-      aov_res_id$stars <- stars
-      aov_res_id
-    }
 
+# stars <-
+#   apply(aov_res_id[, c("p.value")], MARGIN = 1, FUN = p_stars)
+# f_col <- sapply(aov_res_id[,c("statistic")], FUN = sweet_stat)
+# mse_col <- sapply(aov_res_id[,c("meansq")], FUN = sweet_stat)
+# p_col <- sapply(aov_res_id[,c("p.value")], FUN = sweet_p)

@@ -196,3 +196,4 @@ factor_grid.data.frame <- function(data, ..., ind_vars) {
   data.020
   attr(data.020)$ind_vars(names(data.020))
 }
+

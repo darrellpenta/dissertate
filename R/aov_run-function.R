@@ -3,6 +3,8 @@
 #' Creates a dataframe of formulas for aovs from a filter grid
 #' @importFrom magrittr %>%
 #' @importFrom stats as.formula
+#' @importFrom graphics stars
+#' @importFrom stats df
 #' @param .data data to be analysed
 #' @param .spec specs for anovas
 #' @param ... further arguments passed to or from other methods
@@ -13,7 +15,7 @@
 #' @export
 
 
-aov_run_  <-
+aov_run <-
   function(.data, .spec, ...){
     ar_dots <-
       pryr::named_dots(...)
@@ -30,10 +32,14 @@ aov_run_  <-
       dplyr::mutate_at(paste0(.spec$dep_var),"as.numeric") %>%
       dplyr::mutate_if(is.character,"as.factor") %>%
       dplyr::filter_(.dots = sweet_dots(.spec$filter_form))
-     anova_out <-
+    aov_out <-
     stats::aov(lazyeval::f_eval( ~ lazyeval::uqf(stats::as.formula(.spec$aov_form))), data = .data)
-    anova_out <-
-      sweet_tidy(anova_out)
+    aov_out <-
+      sweet_tidy(aov_out) %>%
+      dplyr::ungroup() %>%
+      dplyr::mutate_at(c("mse","f"),"sweet_stat") %>%
+      dplyr::mutate_at(c("p"),"sweet_p")
+
   }
 
 

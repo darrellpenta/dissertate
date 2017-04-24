@@ -24,14 +24,14 @@ sweet_stat.numeric <- function(.stat, ...) {
 
   if (length(.stat) > 1) {
 .stat <-
-      sapply(.stat,
+  suppressWarnings(sapply(.stat,
              MARGIN = 2,
              sweet_stat,
-             ... = ...)
+             ... = ...))
 
   } else{
     .stat <-
-      sweetround(.stat = .stat, ...)
+      suppressWarnings(sweetround(.stat = .stat, ...))
  .stat
   }
 }
@@ -42,14 +42,14 @@ sweet_stat.numeric <- function(.stat, ...) {
 sweet_stat.character <- function(.stat, ...) {
   if (length(.stat) > 1) {
     .stat <-
-      sapply(as.numeric(.stat),
+      suppressWarnings(sapply(as.numeric(.stat),
              MARGIN = 2,
              sweet_stat,
-             ...)
+             ...))
     .stat
   } else{
     .stat <-
-      sweetround(.stat = as.numeric(.stat), ...)
+      suppressWarnings(sweetround(.stat = as.numeric(.stat), ...))
     .stat
   }
 }
@@ -80,7 +80,7 @@ if (is.list(.stat)) {
       dplyr::mutate_at(.stat, .cols=names(which(sapply(.stat,is.double)==TRUE)),function(x)lapply(x,"sweetround"))
   } else {
     .stat <-
-        lapply(as.numeric(.stat), sweetround,...)
+      suppressWarnings(lapply(as.numeric(.stat), sweetround,...))
     }
   } else {
     NextMethod("sweet_stat")  }

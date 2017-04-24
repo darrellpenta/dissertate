@@ -30,6 +30,7 @@ Collate:
     'sweet_dots-function.R'
     'aov_form_helpers-function.R'
     'aov_form_grid-function.R'
+    'aov_fstats_table-function.R'
     'standard_error-function.R'
     'p_stars-function.R'
     'statround-function.R'
