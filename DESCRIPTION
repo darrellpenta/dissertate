@@ -50,6 +50,7 @@ Collate:
     'summary_stats-function.R'
     'factor_summary-function.R'
     'pround-function.R'
+    'root_dir-function.R'
     'sort-function.R'
     'summary_form_helpers-function.R'
     'summary_form_grid-function.R'
