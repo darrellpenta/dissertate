@@ -1,6 +1,7 @@
 #' APA numbers-as-text
 
 #' @param x a  .dataframe
+#' @param uppercase Capitlize the first letter (for starting a sentence); defaults to FALSE
 #' @param ... further arguments passed to or from other methods
 #' @return a number expressed as text
 #' @rdname APA_txt_num
@@ -8,7 +9,7 @@
 
 
 APA_txt_num <-
-  function(x, ...){
+  function(x, uppercase = FALSE,...){
     # DP modified original:
     # Function by John Fox found here:
     # http://tolstoy.newcastle.edu.au/R/help/05/04/2715.html
@@ -63,6 +64,9 @@ APA_txt_num <-
     suffixes <- c("thousand", "million", "billion", "trillion")
     if (length(x) > 1) return(trim(sapply(x, helper)))
     helper(x)
+
+    ifelse(isTRUE(x),stringr::str_to_title(x),x)
+    x
   }
 
 
