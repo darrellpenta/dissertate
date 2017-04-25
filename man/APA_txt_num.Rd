@@ -4,10 +4,12 @@
 \alias{APA_txt_num}
 \title{APA numbers-as-text}
 \usage{
-APA_txt_num(x, ...)
+APA_txt_num(x, uppercase = FALSE, ...)
 }
 \arguments{
 \item{x}{a  .dataframe}
+
+\item{uppercase}{Capitlize the first letter (for starting a sentence); defaults to FALSE}
 
 \item{...}{further arguments passed to or from other methods}
 }
