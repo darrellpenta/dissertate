@@ -21,6 +21,10 @@ aov_fstats_to_long <- function(.data, ...) {
       remove = TRUE
     )
 
+  .data <-
+    .data[,sapply(names(.data), FUN=function(x){!x %in% c("stars")})]
+
+
   unite_form <-
     paste("~tidyr::unite(.data,  col = fbind,  main_number,  set_number,  dep_var,  label,  term,  sep = '_',  remove = TRUE) %>% dplyr::select(-id, -grp)")
   unite_form <-
@@ -71,46 +75,44 @@ aov_fstats_to_long <- function(.data, ...) {
 
 #' @rdname aov_fstats_reshape
 #' @export
-aov_fstats_to_wide <- function(.data,.gather=TRUE, .col_ord = c("PCT", "PCTND", "ASN", "ASNND","UNIN","UNINND","MISCEL"),...) {
+aov_fstats_to_wide <-
+  function(.data,
+           .gather=TRUE,
+           .col_ord = c("PCT", "PCTND", "ASN", "ASNND","UNIN","UNINND","MISCEL"),
+           ...) {
 
 
-
-  l_df <-
-    .data %>%
-    dplyr::ungroup()
-  l_df <-
-    l_df[,sapply(names(l_df), FUN=function(x){!x %in% c("main_number")})]
+  .data <-
+    .data[,sapply(names(.data), FUN=function(x){!x %in% c("main_number")})]
 
   l_unite <-
-    paste0("~tidyr::unite(l_df, col = fbind, set_number, label, term, sep = '_', remove = TRUE)")
+    paste0('~tidyr::unite(.data, col = fbind, set_number, label, term, sep="_", remove=TRUE)')
   l_unite <-
     stats::as.formula(l_unite)
-  l_df <-
-    lazyeval::f_eval(l_unite,data = l_df)
+  .data <-
+    lazyeval::f_eval(l_unite,data = .data)
 
 
-  l_df_index <- l_df["fbind"] %>%
+  l_df_index <- .data["fbind"] %>%
     unique() %>%
     tibble::rownames_to_column("index_id")
-  l_df <-
-    l_df[,sapply(names(l_df), FUN=function(x){!x %in% c("index_id")})]
+  .data <-
+    .data[,sapply(names(.data), FUN=function(x){!x %in% c("index_id")})]
 
-  l_df <-
-    dplyr::group_by_(l_df, .dots = sweet_dots("fbind"))
+  .data <-
+    dplyr::group_by_(.data, .dots = sweet_dots("fbind"))
 
-  l_df <-
-    tidyr::spread(l_df, key = "dep_var", value = "fstat")
+  .data <-
+    tidyr::spread(.data, key = "dep_var", value = "fstat")
 
   if(isTRUE(.gather)){
-  colnums<-
-    ncol(l_df)
-  colnums <- as.integer(colnums)
-
-  gather_form <- paste("~tidyr::gather(l_df, dep_var, stat, 2:colnums)")
-  gather_form <-
-    stats::as.formula(gather_form)
+  col_num<-ncol(.data)
+  col_num <- as.numeric(col_num)
   ldf_out <-
-    lazyeval::f_eval(gather_form, data = l_df) %>%
+  tidyr::gather_(data = .data,
+                 key_col = "dep_var",
+                 value_col = "stat",
+                 gather_cols = names(.data)[2:col_num]) %>%
     dplyr::left_join(y = l_df_index, by = "fbind")
 
   ldf_out$index_id <- as.numeric(ldf_out$index_id)
@@ -134,7 +136,7 @@ aov_fstats_to_wide <- function(.data,.gather=TRUE, .col_ord = c("PCT", "PCTND", 
   ldf_out
 }else{
   ldf_out <-
-  l_df %>%
+  .data %>%
   dplyr::left_join(y = l_df_index, by = "fbind")
 
   ldf_out$index_id <- as.numeric(ldf_out$index_id)

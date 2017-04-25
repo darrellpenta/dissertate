@@ -52,8 +52,8 @@ names(data_right) <- c("bind","r_df","mse","f2stars")
   data <-
     lazyeval::f_eval(statcol, data = data)
 
- starscol <- paste0('~dplyr::mutate(.data=data, stars = paste0(ifelse(stars == "NA" | stars == "n.s."," ",
-            stars)," : ",ifelse(f2stars == "NA" | f2stars == "n.s."," ",
+ starscol <- paste0('~dplyr::mutate(.data=data, stars = paste0(ifelse(stars == "NA" | is.na(stars) | stars == "n.s."," ",
+            stars)," : ",ifelse(f2stars == "NA" | is.na(f2stars) | f2stars == "n.s."," ",
             f2stars)))')
 
   starscol <-
@@ -133,7 +133,7 @@ data_names <- names(.data)
 
     .data$main_number  <-as.numeric(.data$main_number)
     .data$set_number  <-as.numeric(.data$set_number)
-
 .data
+
   }
 
