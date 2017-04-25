@@ -6,20 +6,20 @@
 \alias{summary_stats.default}
 \title{Standard summary stats}
 \usage{
-summary_stats(data, ...)
+summary_stats(.data, ...)
 
-\method{summary_stats}{data.frame}(data, ..., meas, cols = FALSE)
+\method{summary_stats}{data.frame}(.data, ..., .dep_var, .ind_var = FALSE)
 
-\method{summary_stats}{default}(data, meas, cols, ...)
+\method{summary_stats}{default}(.data, .dep_var, .ind_var, ...)
 }
 \arguments{
-\item{data}{for which a summary is to be computed}
+\item{.data}{for which a summary is to be computed}
 
 \item{...}{additional arguments}
 
-\item{meas}{dependent measure to compute summaries over}
+\item{.dep_var}{dependent measure to compute summaries over}
 
-\item{cols}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
+\item{.ind_var}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
 }
 \value{
 a data frame with columns for:  N = length, M = mean, SD = sd, SE = standard_error

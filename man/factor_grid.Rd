@@ -37,5 +37,7 @@ Create a \code{factor.grid} df from a dataframe
 \seealso{
 Other factorial-design functions: \code{\link{aov_form_grid}},
   \code{\link{combine_factor_levels}},
-  \code{\link{factor_filter}}, \code{\link{factor_summary}}
+  \code{\link{factor_filter}},
+  \code{\link{factor_summary}},
+  \code{\link{summary_form_grid}}
 }

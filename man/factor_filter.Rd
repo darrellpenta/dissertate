@@ -38,5 +38,6 @@ Formula-strings for filtering a data set based on the levels of crossed factors
 \seealso{
 Other factorial-design functions: \code{\link{aov_form_grid}},
   \code{\link{combine_factor_levels}},
-  \code{\link{factor_grid}}, \code{\link{factor_summary}}
+  \code{\link{factor_grid}}, \code{\link{factor_summary}},
+  \code{\link{summary_form_grid}}
 }

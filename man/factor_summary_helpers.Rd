@@ -5,16 +5,16 @@
 \alias{summary_combine}
 \title{Helper functions for creating factor_summary_data}
 \usage{
-summary_subset(data, cols, meas, ...)
+summary_subset(.data, .ind_var, .dep_var, ...)
 
-summary_combine(data, ...)
+summary_combine(.data, ...)
 }
 \arguments{
-\item{data}{for which a summary is to be computed}
+\item{.data}{for which a summary is to be computed}
 
-\item{cols}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
+\item{.ind_var}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
 
-\item{meas}{dependent measure to compute summaries over}
+\item{.dep_var}{dependent measure to compute summaries over}
 
 \item{...}{ignored arguments to other functions}
 }

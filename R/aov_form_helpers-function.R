@@ -315,7 +315,6 @@ aov_clean_cols <- function(.data, ...) {
     dplyr::select(-dplyr::contains(match = "_form.temp")) %>%
     dplyr::select(-dplyr::contains(match = "_vars_form")) %>%
     dplyr::select(-dplyr::contains(match = "_denom")) %>%
-    dplyr::select(-dplyr::contains(match = "_between")) %>%
     dplyr::select(-dplyr::contains(match = "aov_fixed_form")) %>%
     dplyr::select(-dplyr::contains(match = "error_term"))
 

@@ -29,11 +29,11 @@ aov_fstats_combine <- function(.data, stat_ls,  ...) {
 
 data_left<-
         dplyr::filter_(data, .dots = sweet_dots("term != 'Residuals'")) %>%
-        dplyr::select_(.dots = flist_to_dots("list(~bind,~term,~df, ~f,~p, ~flabel)"))
+        dplyr::select_(.dots = flist_to_dots("list(~bind,~term,~df, ~f,~p, ~flabel, ~stars)"))
 data_right <-
         dplyr::filter_(data, .dots = sweet_dots("term == 'Residuals'")) %>%
-        dplyr::select_(.dots = flist_to_dots("list(~bind,~df,~mse)"))
-names(data_right) <- c("bind","r_df","mse")
+        dplyr::select_(.dots = flist_to_dots("list(~bind,~df,~mse, ~stars)"))
+names(data_right) <- c("bind","r_df","mse","f2stars")
 
   data <-
     dplyr::left_join(data_left,data_right,by = "bind")
@@ -52,8 +52,20 @@ names(data_right) <- c("bind","r_df","mse")
   data <-
     lazyeval::f_eval(statcol, data = data)
 
+ starscol <- paste0('~dplyr::mutate(.data=data, stars = paste0(ifelse(stars == "NA" | stars == "n.s."," ",
+            stars)," : ",ifelse(f2stars == "NA" | f2stars == "n.s."," ",
+            f2stars)))')
+
+  starscol <-
+    stats::as.formula(starscol)
+
+  data <-
+    lazyeval::f_eval(starscol, data = data)
+
+
+
   data<-
-    data[c("term","stats")]
+    data[c("term","stats","stars")]
  data
   }
 

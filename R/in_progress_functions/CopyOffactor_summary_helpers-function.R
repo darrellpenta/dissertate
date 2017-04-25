@@ -11,22 +11,22 @@
 #' @rdname factor_summary_helpers
 #' @export
 
-summary_subset <- function(.data, .ind_var, .dep_var, ...) {
+summary_subset <- function(data, cols, meas, ...) {
   sub_set_out <-
     combine_factor_levels(
-      tibble::tibble("data" = .ind_var),
-      m = length(.ind_var):1,
+      tibble::tibble("data" = cols),
+      m = length(cols):1,
       simplify = FALSE,
       byrow = TRUE
     ) %>%
     unlist(recursive = FALSE,
            use.names = FALSE) %>%
-    lapply(function(ind_var_,
-                    dat = .data,
-                    dep_var_ = .dep_var) {
-      summary_stats(.data = dplyr::ungroup(dat),
-                    .dep_var = dep_var_,
-                    .ind_var = ind_var_)
+    lapply(function(cols_,
+                    dat = data,
+                    meas_ = meas) {
+      summary_stats(data = dplyr::ungroup(dat),
+                    meas = meas_,
+                    cols = cols_)
 
     })
   sub_set_out
@@ -37,9 +37,9 @@ summary_subset <- function(.data, .ind_var, .dep_var, ...) {
 #' @export
 #'
 
-summary_combine <- function(.data, ...) {
+summary_combine <- function(data, ...) {
   combine_out <-
-    plyr::ldply(.data, function(x) {
+    plyr::ldply(data, function(x) {
       x_out_vector <-
         names(x)[grepl("[^N|M|SD|SE]", names(x), ignore.case = FALSE)]
 

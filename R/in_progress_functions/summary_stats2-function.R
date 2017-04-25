@@ -11,20 +11,19 @@
 #' @family aov functions
 #' @include sweet_dots-function.R
 #' @include standard_error-function.R
-#' @rdname summary_stats
+#' @rdname summary_stats2
 #' @export
 #'
-summary_stats <-function(.data, ...){
-  UseMethod("summary_stats", .data)
+summary_stats_ <-function(.data, ...){
+  UseMethod("summary_stats_", .data)
 }
 
 
 #' Summary stats for data.frame class
 #'
-#' @rdname summary_stats
-
+#' @rdname summary_stats2
 #' @export
-summary_stats.data.frame <-
+summary_stats_.data.frame <-
   function(.data, ...,.dep_var,.ind_var = FALSE) {
   assertthat::validate_that(
     is.data.frame(.data) |
@@ -37,7 +36,10 @@ if(is.character(.ind_var))
 { .data<-
   dplyr::group_by_(.data = .data,
                             .dots = sweet_dots(.ind_var))
-.data}
+.data} else {
+  .data <-
+    .data
+}
 
   standard_error <- function(x) {
     x <-
@@ -59,12 +61,12 @@ if(is.character(.ind_var))
 
 
 #' A vectorized version of summary_stats.data.frame
-#' @rdname summary_stats
+#' @rdname summary_stats2
 #' @export
-summary_stats.default <-
+summary_stats_.default <-
   Vectorize(
     FUN = function(.data, .dep_var, .ind_var, ...)
-      summary_stats.data.frame(.data = .data,
+      summary_stats_.data.frame(.data = .data,
                                ...,
                                .ind_var = .ind_var,
                                .dep_var = .dep_var),

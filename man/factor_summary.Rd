@@ -4,16 +4,16 @@
 \alias{factor_summary}
 \title{Summary stats for factors}
 \usage{
-factor_summary(data, meas, cols, grp_factor, ...)
+factor_summary(.data, .dep_var, .ind_var, .grp_var, ...)
 }
 \arguments{
-\item{data}{for which a summary is to be computed}
+\item{.data}{for which a summary is to be computed}
 
-\item{meas}{dependent measure to compute summaries over}
+\item{.dep_var}{dependent measure to compute summaries over}
 
-\item{cols}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
+\item{.ind_var}{FALSE (default) for collapsing over all variables, or a vector of variables to collapses over in stages}
 
-\item{grp_factor}{a grouping factor}
+\item{.grp_var}{a grouping factor}
 
 \item{...}{additional arguments}
 }
@@ -26,5 +26,6 @@ Summary stats for factors
 \seealso{
 Other factorial-design functions: \code{\link{aov_form_grid}},
   \code{\link{combine_factor_levels}},
-  \code{\link{factor_filter}}, \code{\link{factor_grid}}
+  \code{\link{factor_filter}}, \code{\link{factor_grid}},
+  \code{\link{summary_form_grid}}
 }

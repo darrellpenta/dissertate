@@ -2,7 +2,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @inherit summary_stats
-#' @param grp_factor a grouping factor
+#' @param .grp_var a grouping factor
 #' @param ... additional arguments
 #' @return a data.frame of summary stats
 #' @family factorial-design functions
@@ -13,29 +13,29 @@
 #' @include standard_error-function.R
 #' @export
 #'
-factor_summary <- function(data, meas, cols, grp_factor,  ...) {
+factor_summary <- function(.data, .dep_var, .ind_var, .grp_var,  ...) {
   assertthat::validate_that(
-    is.data.frame(data) |
-      tibble::is.tibble(data),
-    assertthat::has_attr(data, "names")
+    is.data.frame(.data) |
+      tibble::is.tibble(.data),
+    assertthat::has_attr(.data, "names")
   )
-  assertthat::validate_that(!(missing(meas)))
-  assertthat::validate_that(!(missing(grp_factor)),
-                            is.character(grp_factor),
-                            grp_factor %in% names(data))
+  assertthat::validate_that(!(missing(.dep_var)))
+  assertthat::validate_that(!(missing(.grp_var)),
+                            is.character(.grp_var),
+                            .grp_var %in% names(.data))
 
-  if (length(meas) == 1) {
+  if (length(.dep_var) == 1) {
     summary_out <-
       dplyr::bind_rows(
         dplyr::bind_cols(
-          tibble::tibble("data" = grp_factor),
-          summary_stats(data = dplyr::ungroup(data),
-                        meas = meas)
+          tibble::tibble("data" = .grp_var),
+          summary_stats(.data = dplyr::ungroup(.data),
+                        .dep_var = .dep_var)
         ),
         summary_subset(
-          data = data,
-          meas = meas,
-          cols = cols
+          .data = .data,
+          .dep_var = .dep_var,
+          .ind_var = .ind_var
         ) %>%
           summary_combine()
       )
@@ -49,25 +49,25 @@ factor_summary <- function(data, meas, cols, grp_factor,  ...) {
     summary_out
   } else {
     summary_list_out <-
-      plyr::ldply(meas, function(meas_x,
-                                 data_x = data,
-                                 cols_x = cols,
-                                 grp_factor_x = grp_factor) {
+      plyr::ldply(.dep_var, function(dep_var_x,
+                                 data_x = .data,
+                                 cols_x = .ind_var,
+                                 grp_var_x = .grp_var) {
         summary_out <-
           dplyr::bind_rows(
             dplyr::bind_cols(
-              tibble::tibble("data" = grp_factor_x),
-              summary_stats(data = dplyr::ungroup(data_x),
-                            meas = meas_x)
+              tibble::tibble("data" = grp_var_x),
+              summary_stats(.data = dplyr::ungroup(data_x),
+                            .dep_var = dep_var_x)
             ),
             summary_subset(
-              data = data_x,
-              meas = meas_x,
-              cols = cols_x
+              .data = data_x,
+              .dep_var = dep_var_x,
+              .ind_var = cols_x
             ) %>%
               summary_combine()
           )  %>%
-          dplyr::mutate(Measure = paste0(meas_x))
+          dplyr::mutate(Measure = paste0(dep_var_x))
 
         summary_out <-
           dplyr::arrange_(summary_out,
