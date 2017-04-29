@@ -104,20 +104,21 @@ aov_fgrid.default <-
     if (is.list(.dep_var) | length(.dep_var) > 1) {
       .data <-
         lapply(.dep_var, function(dv,
-                                  data = .data,
-                                  grp_var = .grp_var,
-                                  btw_var = .btw_var,
+                                  d = .data,
+                                  gv = .grp_var,
+                                  bv = .btw_var,
                                   ...) {
           dots_ <-
             pryr::named_dots(...)
           lapply(dots_, eval, parent.frame())
 
-          data <-
+          d <-
             aov_fgrid_generate(
-              .data = data,
+              .data = d,
               .dep_var = dv,
-              .grp_var = grp_var,
-              .btw_var = btw_var
+              .grp_var = gv,
+              .btw_var = bv,
+              ... = ...
             )
         }) %>%
         dplyr::bind_rows()

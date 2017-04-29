@@ -68,7 +68,7 @@ drop_fgrid_levels <-
 
     keep <-
       apply(d,1,function(x) {
-      ifelse(all(x %in% permutations(n = 2,r = ncol(d),v=c("0","1"),set = FALSE,repeats.allowed = TRUE)),FALSE,TRUE)})
+      ifelse(all(x %in% gtools::permutations(n = 2,r = ncol(d),v=c("0","1"),set = FALSE,repeats.allowed = TRUE)),FALSE,TRUE)})
 
     .data<-.data[keep,]
       .data

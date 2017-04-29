@@ -211,23 +211,23 @@ aov_select_col <-
     d <-
       .data[grepl(paste0("_sel.temp"), names(.data), fixed = TRUE)]
 
-   d$dep_var <- paste0(.dep_var)
-   d$grp_var <- paste0(.grp_var)
+    d$dep_var <- paste0(.dep_var)
+    d$grp_var <- paste0(.grp_var)
 
 
-  d[] <-
-    lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0("~",x)))
+    d[] <-
+      lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0("~",x)))
 
-  d$sform <-
-    apply(d,1,
-          function(x) {
-            str_c(x[!is.na(x)], collapse = ",")})
+    d$sform <-
+      apply(d,1,
+            function(x) {
+              str_c(x[!is.na(x)], collapse = ",")})
 
- d$sform <-
-   d$sform <- apply(d["sform"], 1, function(x) paste0('list(',x,')'))
+    d$sform <-
+      d$sform <- apply(d["sform"], 1, function(x) paste0('list(',x,')'))
 
     .data$select_form <-
-     d$sform
+      d$sform
     .data
   }
 
@@ -250,16 +250,14 @@ aov_groupby_col <-
 
 
   d[] <-
-    lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0("~",x)))
+    lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0(x)))
 
   d$gbform <-
     apply(d,1,
           function(x) {
             str_c(x[!is.na(x)], collapse = ",")})
 
- d$gbform <-
-   d$gbform <- apply(d["gbform"], 1, function(x) paste0('list(',x,')'))
-
+  d$gbform <- paste0("dplyr::group_by(",gbfpr,")")
     .data$groupby_form <-
      d$gbform
     .data
