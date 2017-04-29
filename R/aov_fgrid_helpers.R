@@ -1,32 +1,24 @@
 #' AOV form helpers
 #'
 #' @param .data a  .dataframe
-#' @param ... further arguments passed to or from other methods
 #' @param .dep_var a vector naming the depend. var.
 #' @param .grp_var the grouping factor
 #' @param .btw_var an optional vector naming the between-subjects variable
-#' @param .rm_col an optional vector naming columns to remove
+#' @param ... further arguments passed to or from other methods
 #' @return a data.frame with a  class attribute for passing to additional
 #' @include sweet_dots-function.R
 #' @rdname aov_form_helpers
 #' @export
 #'
-aov_formulate <- function(.data, ...) {
-  UseMethod("aov_formulate", .data)
-}
-
-#' @rdname aov_form_helpers
-#' @export
-
-aov_formulate.between <- function(.data,
-                                  ...,
-                                  .dep_var,
-                                  .grp_var,
-                                  .btw_var) {
+aov_formulate <- function(.data,
+                          .dep_var,
+                          .grp_var,
+                          .btw_var = FALSE,
+                          ...) {
   af_dots <-
     pryr::named_dots(...)
   lapply(af_dots, eval, parent.frame())
-
+if(is.character(.btw_var)){
   error_term <-
     ifelse(
       .data$aov_fixed_term == .data$iv_between,
@@ -65,20 +57,7 @@ aov_formulate.between <- function(.data,
           sep = " + ")
   .data$aov_form <- aov_formula
   .data
-}
-
-
-
-#' @rdname aov_form_helpers
-#' @export
-
-aov_formulate.within <- function(.data,
-                                 ...,
-                                 .dep_var,
-                                 .grp_var) {
-  af_dots <-
-    pryr::named_dots(...)
-  lapply(af_dots, eval, parent.frame())
+} else if(missing(.btw_var) | !(isTRUE(.btw_var))) {
 
   error_term <-
     paste0("Error(",
@@ -88,8 +67,7 @@ aov_formulate.within <- function(.data,
            ")")
 
   .data$error_term <- error_term
-  .data$error_term <-
-    error_term
+
 
   aov_formula <-
     paste(paste(.dep_var,
@@ -99,8 +77,7 @@ aov_formulate.within <- function(.data,
           sep = " + ")
   .data$aov_form <- aov_formula
   .data
-
-}
+}}
 
 
 
@@ -111,6 +88,7 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
     at_dots <-
       pryr::named_dots(...)
     lapply(at_dots, eval, parent.frame())
+
     terms_cols <-
       .data  %>%
       dplyr::bind_rows() %>%
@@ -124,9 +102,8 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
                          collapse = ","
                        )))
 
-    class(.data) <- append(class(.data), "within")
     .data
-  } else {
+  } else if(missing(.btw_var) | !(isTRUE(.btw_var))){
     terms_cols <-
       .data %>%
       dplyr::bind_rows() %>%
@@ -139,8 +116,7 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
                          collapse = ","
                        )))
 
-    class(.data) <- append(class(.data), "within")
-    .data
+
   }
 }
 
@@ -175,34 +151,18 @@ iv_between_col <-
 #' @rdname aov_form_helpers
 #' @export
 
-aov_vars_col <- function(.data, .rm_col = FALSE, ...) {
+aov_vars_col <- function(.data, ...) {
   fc_dots <-
     pryr::named_dots(...)
 
   lapply(fc_dots, eval, parent.frame())
 
-
-  if (is.character(.rm_col) & !(isTRUE(.rm_col))) {
-    remove_col <-
-      paste0(.rm_col)
-    sw <-
-      dplyr::starts_with
-    out <-
-      dplyr::select(.data, -sw(remove_col)) %>%
-      dplyr::select(dplyr::contains(match = "_nm")) %>%
-      colnames() %>%
-      stringr::str_replace_all("_nm", "")
-    out <-
-      stringr::str_trim(out, side = "both")
-    out
-  } else{
     out <-
       colnames(dplyr::select(.data, dplyr::contains(match = "_nm"))) %>%
       stringr::str_replace_all("_nm", "")
     out <-
       stringr::str_trim(out, side = "both")
     out
-  }
   out_data <- .data
   out <-
     out %>%
@@ -221,7 +181,7 @@ aov_vars_col <- function(.data, .rm_col = FALSE, ...) {
         av_dat_out[[1]] <-
           ifelse(av_dat_out[[1]] == 1,
                  NA,
-                 paste(.v))
+                 paste0(.v))
       }
 
     )
@@ -248,28 +208,60 @@ aov_select_col <-
 
     lapply(selc_dots, eval, parent.frame())
 
-    select_data_out <-
-      colnames(dplyr::select(.data,
-                             dplyr::contains(match = "_nm"))) %>%
-      stringr::str_replace_all("_nm", "")
+    d <-
+      .data[grepl(paste0("_sel.temp"), names(.data), fixed = TRUE)]
 
-    select_data_out <-
-      stringr::str_trim(select_data_out,
-                        side = "both")
+   d$dep_var <- paste0(.dep_var)
+   d$grp_var <- paste0(.grp_var)
 
-    select_data_out <-
-      c(select_data_out,
-        .dep_var,
-        .grp_var)
-    select_data_out <-
-      paste0("list(",
-             paste("~",select_data_out, collapse = ",",
-                   sep = ""),
-             ")")
 
+  d[] <-
+    lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0("~",x)))
+
+  d$sform <-
+    apply(d,1,
+          function(x) {
+            str_c(x[!is.na(x)], collapse = ",")})
+
+ d$sform <-
+   d$sform <- apply(d["sform"], 1, function(x) paste0('list(',x,')'))
 
     .data$select_form <-
-      select_data_out
+     d$sform
+    .data
+  }
+
+#' Anova aggregrate dv group-by  column
+#'
+#' @rdname aov_form_helpers
+#' @export
+#'
+aov_groupby_col <-
+  function(.data, .grp_var, ...) {
+    selc_dots <-
+      pryr::named_dots(...)
+
+    lapply(selc_dots, eval, parent.frame())
+
+    d <-
+      .data[grepl(paste0("_sel.temp"), names(.data), fixed = TRUE)]
+
+   d$grp_var <- paste0(.grp_var)
+
+
+  d[] <-
+    lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0("~",x)))
+
+  d$gbform <-
+    apply(d,1,
+          function(x) {
+            str_c(x[!is.na(x)], collapse = ",")})
+
+ d$gbform <-
+   d$gbform <- apply(d["gbform"], 1, function(x) paste0('list(',x,')'))
+
+    .data$groupby_form <-
+     d$gbform
     .data
   }
 
@@ -314,6 +306,7 @@ aov_clean_cols <- function(.data, ...) {
     dplyr::select(-dplyr::contains(match = "_nm")) %>%
     dplyr::select(-dplyr::contains(match = "_form.temp")) %>%
     dplyr::select(-dplyr::contains(match = "_vars_form")) %>%
+    dplyr::select(-dplyr::contains(match = "_sel.temp")) %>%
     dplyr::select(-dplyr::contains(match = "_denom")) %>%
     dplyr::select(-dplyr::contains(match = "aov_fixed_form")) %>%
     dplyr::select(-dplyr::contains(match = "error_term"))

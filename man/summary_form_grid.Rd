@@ -31,8 +31,8 @@ a data.frame with a  class attribute for passing to additional
 Creates a dataframe of formulas for summary from a filter grid
 }
 \seealso{
-Other factorial-design functions: \code{\link{aov_form_grid}},
+Other factorial-design functions: \code{\link{aov_fgrid}},
   \code{\link{combine_factor_levels}},
-  \code{\link{factor_filter}}, \code{\link{factor_grid}},
+  \code{\link{create_fgrid}}, \code{\link{expand_fgrid}},
   \code{\link{factor_summary}}
 }
