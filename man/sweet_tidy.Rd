@@ -4,7 +4,7 @@
 \alias{sweet_tidy}
 \title{Modified version of tidy}
 \usage{
-sweet_tidy(.data)
+sweet_tidy(.data, ...)
 }
 \arguments{
 \item{.data}{an aovlist object}

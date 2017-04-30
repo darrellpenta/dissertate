@@ -71,12 +71,17 @@ create_fgrid.list <-
       lapply(data, lapply, function(f) {
         f <- ifelse(identical(f,character(0)),NA,f)
         f}) %>%
-        lapply(function(x) as.data.frame(unique(unlist(x)))) %>%
-          dplyr::bind_cols() %>%
-          magrittr::set_names(value=name)
+        lapply(function(x) as.data.frame(unique(unlist(x))))
 
-    data <-
-      expand.grid(as.list(data)) %>%
+          dat_t <- lapply(data,t)
+          dat_t <- lapply(dat_t, as.data.frame)
+          out <- data.frame(t(plyr::rbind.fill(dat_t)))
+          out <-
+            out %>%
+          magrittr::set_names(value=name)
+          data <-
+      expand.grid(as.list(out)) %>%
+            unique() %>%
       dplyr::mutate_each("as.character")
 
 

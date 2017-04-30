@@ -92,10 +92,10 @@ sweet_p.default <- function(.stat, ...) {
           dots <-  pryr::named_dots(...)
           lapply(dots, eval, parent.frame())
 
-          lapply(x,"sweetpround",...=...)})
+          lapply(x,"sweetpround",... = ...)})
     } else {
       .stat <-
-        lapply(as.numeric(.stat), sweetpround,... = ... )
+        lapply(as.numeric(.stat), sweetpround,... = ...)
     }
   } else {
     NextMethod("sweet_p")  }
