@@ -26,30 +26,39 @@ grow_fgrid<-
       unlist(recursive = FALSE)
 
     lenNA <- c(is.na(d[1]))
+
     d$len <- # Create "len" column
       lapply(d2,length) %>%
       stringr::str_c()
     d$len[lenNA] <- "0"
-    d$lenNA <- lenNA
+
     # len1 <- apply(d[2],1, FUN = function(x){ isTRUE(x==1)})
 
     d$form <-  sapply(d[,1],strsplit,":") %>%
-      str_c()
+      stringr::str_c()
     d$v <- d$form
     d$v <- ifelse(d$len == 1,
                   paste0(paste0(.ind_var),' %in% c("',paste0(d$v),'")'),
                   ifelse(is.na(d$v),NA,
                          paste0(paste0(.ind_var)," %in% ",paste0(d$v))))
     d$form <- d$v
-    d$sel <- paste0(.ind_var)
-    d$sel[lenNA] <- NA
+    d$len <- # Create "len" column
+      lapply(d2,length) %>%
+      stringr::str_c()
+    d$len[lenNA] <- "0"
+    d$lenNA <- lenNA
+    d$aov_dat_sel <- paste0(.ind_var)
+    d$aov_dat_sel[lenNA] <- NA
+    d$aov_term_sel <- d$aov_dat_sel
+    lenNA_1 <- ifelse(d$len == "1" | d$len == "0", TRUE, FALSE)
+    d$aov_term_sel[lenNA_1] <- NA
     d$v <-NULL
     d$lenNA <-NULL
 
 
     d <-
       d %>%
-      `names<-`(c(paste0(.ind_var,c("_nm", "_len","_form.temp","_sel.temp"))))
+      `names<-`(c(paste0(.ind_var,c("_nm", "_len","_form.temp","_aov_dat_sel.temp","_aov_term_sel.temp"))))
     d
   }
 
@@ -140,7 +149,7 @@ label_levels <-
     data_out$label <-
       apply(data_out,1,
             function(x) {
-              str_c(x[!is.na(x)], collapse = " | ")}) %>%
+              stringr::str_c(x[!is.na(x)], collapse = " | ")}) %>%
       lapply(function(x){
         x <-
           ifelse(identical(x,character(0)),NA,x)}) %>%
@@ -176,7 +185,7 @@ filter_from_levels <-
     data_out$filter_form <-
       apply(data_out,1,
             function(x) {
-              str_c(x[!is.na(x)], collapse = " & ")}) %>%
+              stringr::str_c(x[!is.na(x)], collapse = " & ")}) %>%
       lapply(function(x){
         x <-
           ifelse(identical(x,character(0)),NA,x)}) %>%

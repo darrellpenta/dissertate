@@ -77,7 +77,6 @@ aov_fgrid_generate <-
         aov_formulate(.data, .dep_var = .dep_var, .grp_var = .grp_var)
       .data <-
         aov_select_col(.data = .data,
-                       .dep_var = .dep_var,
                        .grp_var = .grp_var)
       .data <-
         aov_groupby_col(

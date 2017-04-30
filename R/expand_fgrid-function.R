@@ -48,7 +48,6 @@ expand_fgrid.factor.grid <-
     data$num_lvls <- 0L
     data$label = NA_character_
     data$filter_form = NA_character_
-    data$select_form = NA_character_
     data["num_lvls"] <-
       number_of_levels(data)
     data["label"] <-

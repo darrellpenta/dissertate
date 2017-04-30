@@ -63,7 +63,7 @@ create_fgrid.list <-
         d001.01 <-
         t(sapply(d001.01, '[', seq(max(sapply(d001.01, length))))) %>%
           as.data.frame()
-        d001.01$set <-apply(d001.01,1, function(x) str_c(x[!is.na(x)], collapse = ":"))
+        d001.01$set <-apply(d001.01,1, function(x) stringr::str_c(x[!is.na(x)], collapse = ":"))
 
         d001.01 <- d001.01["set"]
       }))
@@ -72,12 +72,12 @@ create_fgrid.list <-
         f <- ifelse(identical(f,character(0)),NA,f)
         f}) %>%
         lapply(function(x) as.data.frame(unique(unlist(x)))) %>%
-          bind_cols() %>%
+          dplyr::bind_cols() %>%
           magrittr::set_names(value=name)
 
     data <-
       expand.grid(as.list(data)) %>%
-      mutate_each("as.character")
+      dplyr::mutate_each("as.character")
 
 
     attr(data, "class") <-
@@ -86,22 +86,22 @@ create_fgrid.list <-
   }
 
 #' Create a \code{factor.grid} df from a dataframe
-#' @param ind_vars a character vector naming the columns to extract factor levels from
+#' @param .ind_vars a character vector naming the columns to extract factor levels from
 #' @rdname create_fgrid
 #' @export
 #'
-create_fgrid.data.frame <- function(data, ..., ind_vars) {
+create_fgrid.data.frame <- function(.data, ..., .ind_vars) {
   assertthat::validate_that(
-    is.data.frame(data) |
-      tibble::is.tibble(data),
-    assertthat::has_attr(data, "names")
+    is.data.frame(.data) |
+      tibble::is.tibble(.data),
+    assertthat::has_attr(.data, "names")
   )
-  assertthat::validate_that(is.vector(ind_vars, mode = "character"))
+  assertthat::validate_that(is.vector(.ind_vars, mode = "character"))
 
   options(stringsAsFactors = FALSE)
 
   data.001 <-
-    plyr::llply(ind_vars, function(iv, d = data) {
+    plyr::llply(.ind_vars, function(iv, d = .data) {
       assertthat::validate_that(iv %in% names(d))
 
       d001.01 <-
@@ -160,7 +160,7 @@ create_fgrid.data.frame <- function(data, ..., ind_vars) {
   #modify column names
   data.011 <-
     data.011 %>%
-    `names<-` (paste0(ind_vars))
+    `names<-` (paste0(.ind_vars))
 
   data.020 <-
     as.data.frame(data.011) %>%

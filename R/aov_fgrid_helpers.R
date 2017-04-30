@@ -106,7 +106,6 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
   } else if(missing(.btw_var) | !(isTRUE(.btw_var))){
     terms_cols <-
       .data %>%
-      dplyr::bind_rows() %>%
       dplyr::select_(.dots =
                        sweet_dots(sapply(
                          X = c("aov_fixed_form",
@@ -115,7 +114,8 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
                          paste,
                          collapse = ","
                        )))
-
+    .data <-
+      dplyr::bind_cols(.data, terms_cols)
 
   }
 }
@@ -157,43 +157,14 @@ aov_vars_col <- function(.data, ...) {
 
   lapply(fc_dots, eval, parent.frame())
 
-    out <-
-      colnames(dplyr::select(.data, dplyr::contains(match = "_nm"))) %>%
-      stringr::str_replace_all("_nm", "")
-    out <-
-      stringr::str_trim(out, side = "both")
-    out
-  out_data <- .data
-  out <-
-    out %>%
-    sapply(
-      simplify = "vector",
-      USE.NAMES = FALSE,
-      FUN = function(.v,
-                     .av_dat = out_data) {
-        select_v <-
-          paste0(.v, "_len")
+  d <-
+    .data[grepl(paste0("_aov_term_sel.temp"), names(.data), fixed = TRUE)]
+ vars_col <-
+    apply(d,1,
+          function(x) {
+            stringr::str_c(x[!is.na(x)], collapse = " * ")})
+  vars_col
 
-        av_dat_out <-
-          tibble::tibble(item1 =
-                           .av_dat[, sapply(names(.av_dat), grepl, select_v)])
-
-        av_dat_out[[1]] <-
-          ifelse(av_dat_out[[1]] == 1,
-                 NA,
-                 paste0(.v))
-      }
-
-    )
-  out <- apply(
-    out,
-    MARGIN = 1,
-    FUN = function(x) {
-      x <- paste(stats::na.omit(stringr::str_trim(x, side = "both")),
-                 collapse = " * ")
-    }
-  )
-  out
 }
 
 #' Anova select column
@@ -202,33 +173,35 @@ aov_vars_col <- function(.data, ...) {
 #' @export
 #'
 aov_select_col <-
-  function(.data, .dep_var, .grp_var, ...) {
+  function(.data, .grp_var, ...) {
+    selc_dots <-
+      pryr::named_dots(...)
+
+
     selc_dots <-
       pryr::named_dots(...)
 
     lapply(selc_dots, eval, parent.frame())
 
     d <-
-      .data[grepl(paste0("_sel.temp"), names(.data), fixed = TRUE)]
+      .data[grepl(paste0("_dat_sel.temp"), names(.data), fixed = TRUE)]
 
-    d$dep_var <- paste0(.dep_var)
     d$grp_var <- paste0(.grp_var)
 
 
     d[] <-
-      lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0("~",x)))
+      lapply(d[], function(x) x<- ifelse(is.na(x),NA,paste0(x)))
 
-    d$sform <-
+    d$datsel <-
       apply(d,1,
             function(x) {
-              str_c(x[!is.na(x)], collapse = ",")})
+              stringr::str_c(x[!is.na(x)], collapse = ",")})
 
-    d$sform <-
-      d$sform <- apply(d["sform"], 1, function(x) paste0('list(',x,')'))
+    .data$datsel_form <-
+      d$datsel
 
-    .data$select_form <-
-      d$sform
     .data
+
   }
 
 #' Anova aggregrate dv group-by  column
@@ -244,7 +217,7 @@ aov_groupby_col <-
     lapply(selc_dots, eval, parent.frame())
 
     d <-
-      .data[grepl(paste0("_sel.temp"), names(.data), fixed = TRUE)]
+      .data[grepl(paste0("_term_sel.temp"), names(.data), fixed = TRUE)]
 
    d$grp_var <- paste0(.grp_var)
 
@@ -255,9 +228,8 @@ aov_groupby_col <-
   d$gbform <-
     apply(d,1,
           function(x) {
-            str_c(x[!is.na(x)], collapse = ",")})
+            stringr::str_c(x[!is.na(x)], collapse = ",")})
 
-  d$gbform <- paste0("dplyr::group_by(",gbfpr,")")
     .data$groupby_form <-
      d$gbform
     .data
@@ -302,9 +274,8 @@ aov_clean_cols <- function(.data, ...) {
     .data %>%
     dplyr::select(-dplyr::contains(match = "_len")) %>%
     dplyr::select(-dplyr::contains(match = "_nm")) %>%
-    dplyr::select(-dplyr::contains(match = "_form.temp")) %>%
+    dplyr::select(-dplyr::contains(match = ".temp")) %>%
     dplyr::select(-dplyr::contains(match = "_vars_form")) %>%
-    dplyr::select(-dplyr::contains(match = "_sel.temp")) %>%
     dplyr::select(-dplyr::contains(match = "_denom")) %>%
     dplyr::select(-dplyr::contains(match = "aov_fixed_form")) %>%
     dplyr::select(-dplyr::contains(match = "error_term"))

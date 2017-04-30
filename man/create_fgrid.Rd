@@ -13,14 +13,14 @@ create_fgrid(.data, ...)
 
 \method{create_fgrid}{list}(.data, ...)
 
-\method{create_fgrid}{data.frame}(data, ..., ind_vars)
+\method{create_fgrid}{data.frame}(.data, ..., .ind_vars)
 }
 \arguments{
 \item{.data}{data that will be converted to a factorgrid dataframe}
 
 \item{...}{additional arguments}
 
-\item{ind_vars}{a character vector naming the columns to extract factor levels from}
+\item{.ind_vars}{a character vector naming the columns to extract factor levels from}
 }
 \value{
 a dataframe of class "factor.grid" for passing to additional factorial-design functions

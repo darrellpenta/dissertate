@@ -22,9 +22,11 @@ Imports:
     magrittr,
     stringr,
     reshape,
-    pryr
+    pryr,
+    gtools,
+    R.utils
 RoxygenNote: 6.0.1
-Collate: 
+Collate:
     'APA_txt_num.R'
     'select_dots-function.R'
     'dots_maker-function.R'

@@ -19,7 +19,7 @@ iv_between_col(.data, .btw_var, ...)
 
 aov_vars_col(.data, ...)
 
-aov_select_col(.data, .dep_var, .grp_var, ...)
+aov_select_col(.data, .grp_var, ...)
 
 aov_groupby_col(.data, .grp_var, ...)
 

@@ -41,7 +41,7 @@ expand_factor_grid<-
   # len1 <- apply(d[2],1, FUN = function(x){ isTRUE(x==1)})
 
   d$form <-  sapply(d[,1],strsplit,":") %>%
-    str_c()
+    stringr::str_c()
   d$v <- d$form
   d$v <- ifelse(d$len == 1,
                  paste0(paste0(.ind_var),' %in% c("',paste0(d$v),'")'),
