@@ -5,12 +5,16 @@
 #' @param .data data to be analysed
 #' @param stat_ls list of stat designations for printout
 #' @param latex shoudl the output be latex?
+#' @param interval should pvalues be returned as intervals?
 #' @param ... further arguments passed to or from other methods (ignored)
 #' @return a data.frame with the results of an anova
 #' @rdname aov_fstats_table
 #' @export
 
-aov_fstats_combine <- function(.data, stat_ls,  ...) {
+aov_fstats_combine <- function(.data, stat_ls,  interval, ...) {
+  afs_dots <-
+    pryr::named_dots(...)
+  lapply(afs_dots, eval, parent.frame())
 
   data_names <- names(.data)
 
@@ -44,7 +48,7 @@ names(data_right) <- c("bind","r_df","mse","f2stars")
             stat_ls["eq"][[1]],f,", ",
             stat_ls["mse"][[1]],mse,", ",
             stat_ls["p"][[1]],
-            ifelse(p == ".001",stat_ls["less"][[1]],stat_ls["eq"][[1]]),p))')
+            ifelse(isTRUE(interval),p,ifelse(p == ".001",stat_ls["less"][[1]],stat_ls["eq"][[1]]),p)))')
 
   statcol <-
     stats::as.formula(statcol)

@@ -5,7 +5,7 @@
 \alias{aov_fstats_table}
 \title{Create AOV fstats_table}
 \usage{
-aov_fstats_combine(.data, stat_ls, ...)
+aov_fstats_combine(.data, stat_ls, interval, ...)
 
 aov_fstats_table(.data, latex = TRUE, ...)
 }
@@ -13,6 +13,8 @@ aov_fstats_table(.data, latex = TRUE, ...)
 \item{.data}{data to be analysed}
 
 \item{stat_ls}{list of stat designations for printout}
+
+\item{interval}{should pvalues be returned as intervals?}
 
 \item{...}{further arguments passed to or from other methods (ignored)}
 
