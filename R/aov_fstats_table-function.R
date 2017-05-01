@@ -11,7 +11,7 @@
 #' @rdname aov_fstats_table
 #' @export
 
-aov_fstats_combine <- function(.data, stat_ls,  interval, ...) {
+aov_fstats_combine <- function(.data, stat_ls, interval,...) {
   afs_dots <-
     pryr::named_dots(...)
   lapply(afs_dots, eval, parent.frame())
@@ -42,13 +42,23 @@ names(data_right) <- c("bind","r_df","mse","f2stars")
   data <-
     dplyr::left_join(data_left,data_right,by = "bind")
 
-
-  statcol <- paste0('~dplyr::mutate(.data=data, stats = paste0(
+  if(missing(interval)|!(isTRUE(interval))){
+      statcol <- paste0('~dplyr::mutate(.data=data, stats = paste0(
             flabel,"(",df,",",r_df,")",
             stat_ls["eq"][[1]],f,", ",
             stat_ls["mse"][[1]],mse,", ",
             stat_ls["p"][[1]],
             ifelse(isTRUE(interval),p,ifelse(p == ".001",stat_ls["less"][[1]],stat_ls["eq"][[1]]),p)))')
+      statcol
+  }else if(isTRUE(interval)){
+    statcol <-
+paste0('~dplyr::mutate(.data=data, stats = paste0(
+            flabel,"(",df,",",r_df,")",
+                      stat_ls["eq"][[1]],f,", ",
+                      stat_ls["mse"][[1]],mse,", ",
+                      stat_ls["p"][[1]]," ",p))')
+    statcol
+      }
 
   statcol <-
     stats::as.formula(statcol)
@@ -78,8 +88,15 @@ names(data_right) <- c("bind","r_df","mse","f2stars")
 
 aov_fstats_table <-
   function(.data,
-           latex = TRUE, ...
+           latex = TRUE,
+           interval = FALSE,
+           ...
            ) {
+
+    afs_dots <-
+      pryr::named_dots(...)
+    lapply(afs_dots, eval, parent.frame())
+
     if (isTRUE(latex)) {
       stat_list <- list(
         "eq" = paste0(" $=$ "),
@@ -124,10 +141,15 @@ data_names <- names(.data)
     # }
 
 
-
-
+if(missing(interval)|!(isTRUE(interval))){
   do_run <- paste0('~dplyr::group_by(.data, main_number,set_number,set_id, label, group_id, id) %>%
-                   dplyr::do(aov_fstats_combine(.data = .,stat_ls=stat_list))')
+                   dplyr::do(aov_fstats_combine(.data = .,stat_ls=stat_list,interval = FALSE,...))')
+  do_run
+}else{
+  do_run <- paste0('~dplyr::group_by(.data, main_number,set_number,set_id, label, group_id, id) %>%
+                   dplyr::do(aov_fstats_combine(.data = .,stat_ls=stat_list,interval = TRUE,...))')
+  }
+
   do_run <-
     stats::as.formula(do_run)
 

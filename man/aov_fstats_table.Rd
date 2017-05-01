@@ -7,7 +7,7 @@
 \usage{
 aov_fstats_combine(.data, stat_ls, interval, ...)
 
-aov_fstats_table(.data, latex = TRUE, ...)
+aov_fstats_table(.data, latex = TRUE, interval = FALSE, ...)
 }
 \arguments{
 \item{.data}{data to be analysed}
