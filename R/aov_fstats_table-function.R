@@ -52,11 +52,7 @@ names(data_right) <- c("bind","r_df","mse","f2stars")
       statcol
   }else if(isTRUE(interval)){
     statcol <-
-paste0('~dplyr::mutate(.data=data, stats = paste0(
-            flabel,"(",df,",",r_df,")",
-                      stat_ls["eq"][[1]],f,", ",
-                      stat_ls["mse"][[1]],mse,", ",
-                      stat_ls["p"][[1]]," ",p))')
+paste0('~dplyr::mutate(.data=data, stats = paste0(flabel,"(",df,",",r_df,")",stat_ls["eq"][[1]],f,", ", stat_ls["mse"][[1]],mse,", ",stat_ls["p"][[1]]," ",p))')
     statcol
       }
 
