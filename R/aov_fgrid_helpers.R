@@ -18,10 +18,11 @@ aov_formulate <- function(.data,
   af_dots <-
     pryr::named_dots(...)
   lapply(af_dots, eval, parent.frame())
-if(is.character(.btw_var)){
+
+  if(is.character(.btw_var)){
   error_term <-
     ifelse(
-      .data$aov_fixed_term == .data$iv_between,
+      .data$aov_fixed_form == .data$iv_between,
       paste0("Error(", .grp_var, ") + ", .data$iv_between),
       ifelse(
         .data$iv_between == "",
@@ -42,10 +43,7 @@ if(is.character(.btw_var)){
                        ")"),
                 sep = "/"),
           ") + ",
-          .data$iv_between
-        )
-      )
-    )
+          .data$iv_between)))
   .data$error_term <-
     error_term
 

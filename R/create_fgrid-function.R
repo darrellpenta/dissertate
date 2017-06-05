@@ -42,11 +42,11 @@ create_fgrid.list <-
     assertthat::validate_that(assertthat::has_attr(.data, "names"))
 
     options(stringsAsFactors = FALSE)
-    name <- names(.data)
+    fname <- names(.data)
     data<-
-     suppressWarnings(sapply(names(.data), function(iv) {
+     suppressWarnings(lapply(names(.data), function(iv, dat=.data) {
         d001.01 <-
-          as.data.frame(c(.data[[iv]],NA)) %>%
+          as.data.frame(c(dat[[iv]],NA)) %>%
           `names<-`(paste(iv))
 
         m <-
@@ -67,10 +67,15 @@ create_fgrid.list <-
 
         d001.01 <- d001.01["set"]
       }))
+    
+        
         data<-
-      lapply(data, lapply, function(f) {
-        f <- ifelse(identical(f,character(0)),NA,f)
-        f}) %>%
+          rapply(data, f=function(x){
+            if(identical(x,character(0))){
+              x<-NA
+              x
+            }
+            x},how="replace") %>%
         lapply(function(x) as.data.frame(unique(unlist(x))))
 
           dat_t <- lapply(data,t)
@@ -78,7 +83,7 @@ create_fgrid.list <-
           out <- data.frame(t(plyr::rbind.fill(dat_t)))
           out <-
             out %>%
-          magrittr::set_names(value=name)
+          magrittr::set_names(value=fname)
           data <-
       expand.grid(as.list(out)) %>%
             unique() %>%
