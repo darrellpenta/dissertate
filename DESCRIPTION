@@ -24,9 +24,10 @@ Imports:
     reshape,
     pryr,
     gtools,
-    R.utils
+    R.utils,
+    methods
 RoxygenNote: 6.0.1
-Collate: 
+Collate:
     'APA_txt_num.R'
     'select_dots-function.R'
     'dots_maker-function.R'

@@ -3,7 +3,7 @@
 #' @param .data a  .dataframe
 #' @param .dep_var a vector naming the depend. var.
 #' @param .grp_var the grouping factor
-#' @param .btw_var an optional vector naming the between-subjects variable
+#' @param .btw_var an optional between-subjects variable
 #' @param ... further arguments passed to or from other methods
 #' @return a data.frame with a  class attribute for passing to additional
 #' @include sweet_dots-function.R
@@ -13,13 +13,9 @@
 aov_formulate <- function(.data,
                           .dep_var,
                           .grp_var,
-                          .btw_var = FALSE,
                           ...) {
-  af_dots <-
-    pryr::named_dots(...)
-  lapply(af_dots, eval, parent.frame())
 
-  if(is.character(.btw_var)){
+  if(methods::hasArg(.btw_var)) {
   error_term <-
     ifelse(
       .data$aov_fixed_form == .data$iv_between,
@@ -55,8 +51,7 @@ aov_formulate <- function(.data,
           sep = " + ")
   .data$aov_form <- aov_formula
   .data
-} else if(missing(.btw_var) | !(isTRUE(.btw_var))) {
-
+} else {
   error_term <-
     paste0("Error(",
            paste(.grp_var,
@@ -75,17 +70,16 @@ aov_formulate <- function(.data,
           sep = " + ")
   .data$aov_form <- aov_formula
   .data
-}}
+}
+  }
 
 
 
 #' @rdname aov_form_helpers
 #' @export
-aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
-  if (is.character(.btw_var)) {
-    at_dots <-
-      pryr::named_dots(...)
-    lapply(at_dots, eval, parent.frame())
+aov_terms_col <- function(.data, ...) {
+
+  if (methods::hasArg(.btw_var)) {
 
     terms_cols <-
       .data  %>%
@@ -101,7 +95,8 @@ aov_terms_col <- function(.data, .btw_var = FALSE, ...) {
                        )))
 
     .data
-  } else if(missing(.btw_var) | !(isTRUE(.btw_var))){
+
+    } else {
     terms_cols <-
       .data %>%
       dplyr::select_(.dots =
@@ -127,21 +122,21 @@ iv_between_col <-
   function(.data, .btw_var, ...) {
     assertthat::validate_that(!(missing(.btw_var)), is.character(.btw_var))
 
-    fc_dots <-
+    dots <-
       pryr::named_dots(...)
-    lapply(fc_dots, eval, parent.frame())
+    lapply(dots, eval, parent.frame())
 
     btw_var <- paste0(.btw_var)
 
-    data_btwn <-
+    data_btw <-
       .data %>%
       dplyr::select(dplyr::contains(match = btw_var)) %>%
-      dplyr::select(btwn = dplyr::contains(match = "_len"))
+      dplyr::select(btw = dplyr::contains(match = "_len"))
 
-    data_btwn$btwn <-
-      ifelse(data_btwn$btwn == min(data_btwn$btwn), "", paste0(btw_var))
+    data_btw$btw <-
+      ifelse(data_btw$btw == min(data_btw$btw), "", paste0(btw_var))
 
-    data_btwn$btwn
+    data_btw$btw
   }
 
 #' Anova variables column
@@ -150,10 +145,6 @@ iv_between_col <-
 #' @export
 
 aov_vars_col <- function(.data, ...) {
-  fc_dots <-
-    pryr::named_dots(...)
-
-  lapply(fc_dots, eval, parent.frame())
 
   d <-
     .data[grepl(paste0("_aov_term_sel.temp"), names(.data), fixed = TRUE)]
@@ -172,16 +163,8 @@ aov_vars_col <- function(.data, ...) {
 #'
 aov_select_col <-
   function(.data, .grp_var, ...) {
-    selc_dots <-
-      pryr::named_dots(...)
 
-
-    selc_dots <-
-      pryr::named_dots(...)
-
-    lapply(selc_dots, eval, parent.frame())
-
-    d <-
+  d <-
       .data[grepl(paste0("_dat_sel.temp"), names(.data), fixed = TRUE)]
 
     d$grp_var <- paste0(.grp_var)
@@ -209,10 +192,6 @@ aov_select_col <-
 #'
 aov_groupby_col <-
   function(.data, .grp_var, ...) {
-    selc_dots <-
-      pryr::named_dots(...)
-
-    lapply(selc_dots, eval, parent.frame())
 
     d <-
       .data[grepl(paste0("_term_sel.temp"), names(.data), fixed = TRUE)]
@@ -236,11 +215,6 @@ aov_groupby_col <-
 #' @rdname aov_form_helpers
 #' @export
 aov_index_col <- function(.data, .dep_var, .grp_var, ...) {
-  i_dots <-
-    pryr::named_dots(...)
-
-  lapply(i_dots, eval, parent.frame())
-
 
   .data <-
     tibble::rownames_to_column(.data, "set_number")
@@ -264,10 +238,7 @@ aov_index_col <- function(.data, .dep_var, .grp_var, ...) {
 #' @rdname aov_form_helpers
 #' @export
 aov_clean_cols <- function(.data, ...) {
-  cc_dots <-
-    pryr::named_dots(...)
 
-  lapply(cc_dots, eval, parent.frame())
   .data <- #drops len (unneeded)
     .data %>%
     dplyr::select(-dplyr::contains(match = "_len")) %>%

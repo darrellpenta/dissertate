@@ -4,14 +4,15 @@
 \alias{sweetpround}
 \title{Sweeten a statistic: Helper for Stat Sweet}
 \usage{
-sweetpround(.stat, rnd_digit, interval = FALSE, lead_zero = FALSE, ...)
+sweetpround(.stat, rnd_digit, interval = c("none", "sig", "all"),
+  lead_zero = FALSE, ...)
 }
 \arguments{
 \item{.stat}{a numeric value representing a statistic}
 
 \item{rnd_digit}{value to pass to round function, defaults to 2}
 
-\item{interval}{(FALSE) Should P values be returned in a range?  APA suggests reporting p values in a range for figures and tables in some cases. Automatically returnd without leading zeros, so if lead_zero is ignored when interval=TRUE}
+\item{interval}{Which .stat should return is value as an interval cut-off?  (Default is \code{none}, so a .stat is returned representing the underlying number); \code{sig} will return intervals for values in the range: 0<>0.001<>.01<>.05, and otherwise return a sweet p; code will return the interval values in the range: 0<>0.001<>.01<>.05<>.10<>99. APA suggests reporting p values in a range for figures and tables in some cases. Automatically returned without leading zeros, so lead_zero is ignored when interval=TRUE}
 
 \item{lead_zero}{(FALSE) Should the leading zero (before the decimal) be preserved? Defaults to FALSE, removing the zero in accordance with APA recommendations.}
 

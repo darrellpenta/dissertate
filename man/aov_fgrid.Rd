@@ -4,27 +4,25 @@
 \alias{aov_fgrid}
 \alias{aov_fgrid_generate}
 \alias{aov_fgrid.default}
-\alias{aov_fgrid_vectorized}
+\alias{aov_fgrid}
 \title{Create AOV formulas from a filter.grid}
 \usage{
-aov_fgrid(.data, ..., .dep_var, .grp_var, .btw_var = FALSE)
+aov_fgrid(.data, .dep_var, .grp_var, ...)
 
-aov_fgrid_generate(.data, ..., .dep_var, .grp_var, .btw_var = FALSE)
+aov_fgrid_generate(.data, .dep_var, .grp_var, ...)
 
-aov_fgrid.default(.data, .dep_var, .grp_var, .btw_var = FALSE, ...)
+aov_fgrid.default(.data, ..., .dep_var, .grp_var)
 
-aov_fgrid_vectorized(.data, ..., .dep_var, .grp_var, .btw_var = FALSE)
+aov_fgrid(.data, .dep_var, .grp_var, ...)
 }
 \arguments{
 \item{.data}{a dataframe or a named list of data frames}
-
-\item{...}{further arguments passed to or from other methods}
 
 \item{.dep_var}{a vector naming the depend. var.}
 
 \item{.grp_var}{an optional grouping factor}
 
-\item{.btw_var}{an optional vector naming the between-subjects variable}
+\item{...}{further arguments passed to or from other methods}
 }
 \value{
 a data.frame with a  class attribute for passing to additional

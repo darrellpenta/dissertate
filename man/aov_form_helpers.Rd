@@ -11,9 +11,9 @@
 \alias{aov_clean_cols}
 \title{AOV form helpers}
 \usage{
-aov_formulate(.data, .dep_var, .grp_var, .btw_var = FALSE, ...)
+aov_formulate(.data, .dep_var, .grp_var, ...)
 
-aov_terms_col(.data, .btw_var = FALSE, ...)
+aov_terms_col(.data, ...)
 
 iv_between_col(.data, .btw_var, ...)
 
@@ -34,9 +34,9 @@ aov_clean_cols(.data, ...)
 
 \item{.grp_var}{the grouping factor}
 
-\item{.btw_var}{an optional vector naming the between-subjects variable}
-
 \item{...}{further arguments passed to or from other methods}
+
+\item{.btw_var}{an optional between-subjects variable}
 }
 \value{
 a data.frame with a  class attribute for passing to additional
