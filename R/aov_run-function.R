@@ -93,7 +93,7 @@ aov_run_ <-
      aov_out <-
        lazyeval::f_eval(aov_form,data=edata)
     aov_out <-
-      sweet_tidy(aov_out, interval="sig")
+      sweet_tidy(aov_out)
     aov_out
     }
 

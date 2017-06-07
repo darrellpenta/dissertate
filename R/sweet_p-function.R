@@ -26,7 +26,6 @@ sweet_p.numeric <- function(.stat, ...) {
   if (length(.stat) > 1) {
     .stat <-
       sapply(.stat,
-             MARGIN = 2,
              sweetpround,
              ... = ...)
 
@@ -49,7 +48,6 @@ sweet_p.character <- function(.stat, ...) {
   if (length(.stat) > 1) {
     .stat <-
       sapply(as.numeric(.stat),
-             MARGIN = 2,
              sweetpround,
              ... = ...)
 

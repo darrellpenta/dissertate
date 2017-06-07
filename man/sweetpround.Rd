@@ -4,8 +4,7 @@
 \alias{sweetpround}
 \title{Sweeten a statistic: Helper for Stat Sweet}
 \usage{
-sweetpround(.stat, rnd_digit, interval = c("none", "sig", "all"),
-  lead_zero = FALSE, ...)
+sweetpround(.stat, rnd_digit, interval = "sig", lead_zero = FALSE, ...)
 }
 \arguments{
 \item{.stat}{a numeric value representing a statistic}

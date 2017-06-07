@@ -34,6 +34,6 @@ sweet_tidy <- function(.data, ...) {
   aov_res_id$f <-   sweet_stat(aov_res_id$statistic)
   aov_res_id$p <-   sweet_p(aov_res_id$p.value)
   aov_res_id<-aov_res_id[,sapply(names(aov_res_id), FUN=function(x){x %in% c("main_number","set_number","set_id","label","group_id","id","term","df","mse","f","p" ,"stars")})]
-
+aov_res_id
 }
 

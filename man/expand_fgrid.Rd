@@ -25,6 +25,7 @@ Creates a factor grid dataframe of data-filtering conditions for passing to addi
 }
 \seealso{
 Other factorial-design functions: \code{\link{aov_fgrid}},
+  \code{\link{aov_formulate_bw}},
   \code{\link{combine_factor_levels}},
   \code{\link{create_fgrid}}, \code{\link{factor_summary}},
   \code{\link{summary_form_grid}}

@@ -20,7 +20,7 @@ sweetpround <-
            ...) {
     options(scipen = 999)
     
-statout <- function(.stat, rnd_digit) {
+statout <- function(.stat, rnd_digit=2) {
   round_digit <-
         ifelse(missing(rnd_digit), 3L, as.integer(rnd_digit))
       
@@ -77,14 +77,14 @@ all_interval <- function(.stat) {
         codes[stat_range]
       return(.stat)
     }
-sig_interval <- function(.stat, ...) {
+sig_interval <- function(.stat, rnd=3) {
   
   stat_range <- findInterval(.stat, c(0, 0.001, 0.01, 0.05,99))
   
   codes <- c("$\\textless$ .001",
              "$\\textless$ .01",
              "$\\textless$ .05",
-             as.character(paste0("$=$ ",trimlead(statout(.stat,...=...)))))
+             as.character(paste0("$=$ ",trimlead(statout(.stat)))))
   .stat <-
     codes[stat_range]
   return(.stat)

@@ -32,6 +32,7 @@ Creates a dataframe of formulas for summary from a filter grid
 }
 \seealso{
 Other factorial-design functions: \code{\link{aov_fgrid}},
+  \code{\link{aov_formulate_bw}},
   \code{\link{combine_factor_levels}},
   \code{\link{create_fgrid}}, \code{\link{expand_fgrid}},
   \code{\link{factor_summary}}

@@ -27,13 +27,14 @@ Imports:
     R.utils,
     methods
 RoxygenNote: 6.0.1
-Collate:
+Collate: 
     'APA_txt_num.R'
     'select_dots-function.R'
     'dots_maker-function.R'
     'sweet_dots-function.R'
     'aov_fgrid_helpers.R'
     'aov_fgrid-function.R'
+    'aov_fgrid_between-function.R'
     'aov_fstats_reshape-function.R'
     'aov_fstats_table-function.R'
     'standard_error-function.R'
