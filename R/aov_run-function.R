@@ -16,7 +16,7 @@
 #' @export
 
 
-aov_run_ <-
+aov_run <-
   function(.data, .spec, ...){
 
     ar_dots <-
