@@ -16,7 +16,7 @@
 #' @export
 
 
-aov_run <-
+aov_run_ <-
   function(.data, .spec, ...){
 
     ar_dots <-
@@ -93,7 +93,7 @@ aov_run <-
      aov_out <-
        lazyeval::f_eval(aov_form,data=edata)
     aov_out <-
-      sweet_tidy(aov_out, ... = ...)
+      sweet_tidy(aov_out, interval="sig")
     aov_out
     }
 

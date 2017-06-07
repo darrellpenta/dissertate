@@ -27,23 +27,13 @@ sweet_tidy <- function(.data, ...) {
     tibble::as_tibble()
   colnames(aov_res_id)[1] <- "id"
 
-  p_dots <-
-    pryr::named_dots(...)
-  lapply(p_dots, eval, parent.frame())
-
   aov_res_id <-
     aov_res_id[, !(names(aov_res_id) %in% "sumsq")]
   aov_res_id$stars <- apply(aov_res_id[, c("p.value")], MARGIN = 1, FUN = p_stars)
   aov_res_id$mse <- sweet_stat(aov_res_id$meansq)
   aov_res_id$f <-   sweet_stat(aov_res_id$statistic)
-  aov_res_id$p <-   sweet_p(aov_res_id$p.value, ... = ...)
-
+  aov_res_id$p <-   sweet_p(aov_res_id$p.value)
   aov_res_id<-aov_res_id[,sapply(names(aov_res_id), FUN=function(x){x %in% c("main_number","set_number","set_id","label","group_id","id","term","df","mse","f","p" ,"stars")})]
 
-  # arrange_form <- paste0("~dplyr::arrange(aov_res_id, main_number, set_number)")
-  # arrange_form <-
-  #   stats::as.formula(arrange_form)
-  #
-  # aov_res_id <-
-  #   lazyeval::f_eval(arrange_form, data=aov_res_id)
 }
+

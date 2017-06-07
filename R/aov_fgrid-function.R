@@ -13,43 +13,31 @@
 #' @rdname aov_fgrid
 #' @export
 #'
+#'
 aov_fgrid <- function(.data, ...) {
   UseMethod("aov_fgrid", .data)
 }
 
-#' Create ANOVA formulas from a filter.grid data frame
-#' @rdname aov_fgrid
-#' @export
-
 aov_fgrid_generate <-
-  function(.data, .dep_var, .grp_var, ...) {
+  function(.data, ..., .dep_var, .grp_var) {
     options(stringsAsFactors = FALSE)
-
-    if(methods::hasArg(.btw_var)){
-      .data$iv_between <-
-        iv_between_col(.data, ... = ...)
-      .data
-    }
+    
+    
+    afg_dots <-
+      pryr::named_dots(...)
+    lapply(afg_dots, eval, parent.frame())
+  
       .data$aov_fixed_form <-
-        aov_vars_col(.data, .rm_col = FALSE, ...=...)
+        aov_vars_col(.data)
       .data$aov_error_denom <-
-        aov_vars_col(.data, ... = ...)
+        .data$aov_fixed_form
+      # .data <-
+      #   aov_terms_col(.data)
       .data <-
-        aov_terms_col(.data, ... = ...)
+        aov_formulate(.data, .dep_var = .dep_var, .grp_var = .grp_var)
       .data <-
-        aov_formulate(
-          .data,
-          .dep_var = .dep_var,
-          .grp_var = .grp_var,
-          ...=...
-        )
-      .data <-
-        aov_select_col(
-          .data = .data,
-          .dep_var = .dep_var,
-          .grp_var = .grp_var,
-          ...=...
-        )
+        aov_select_col(.data = .data,
+                       .grp_var = .grp_var)
       .data <-
         aov_groupby_col(
           .data = .data,
@@ -57,46 +45,32 @@ aov_fgrid_generate <-
         )
       .data <-
         aov_index_col(.data, .dep_var = .dep_var, .grp_var = .grp_var)
-
       .data <-
         aov_clean_cols(.data)
       .data
-    # } else if(missing(.btw_var))  {
-    #   .data$aov_fixed_form <-
-    #     aov_vars_col(.data)
-    #   .data$aov_error_denom <-
-    #     .data$aov_fixed_form
-    #   .data <-
-    #     aov_formulate(.data, .dep_var = .dep_var, .grp_var = .grp_var)
-    #   .data <-
-    #     aov_select_col(.data = .data,
-    #                    .grp_var = .grp_var)
-    #   .data <-
-    #     aov_groupby_col(
-    #       .data = .data,
-    #       .grp_var = .grp_var
-    #     )
-    #   .data <-
-    #     aov_index_col(.data, .dep_var = .dep_var, .grp_var = .grp_var)
-    #   .data <-
-    #     aov_clean_cols(.data)
-    #   .data
-    # }
   }
+
 
 
 #' @rdname aov_fgrid
 #' @export
+#' 
 aov_fgrid.default <-
-  function(.data, ..., .dep_var, .grp_var) {
-
+  function(.data, .dep_var, .grp_var, ...) {
+    d_dots <-
+      pryr::named_dots(...)
+    lapply(d_dots, eval, parent.frame())
+    
     if (is.list(.dep_var) | length(.dep_var) > 1) {
       .data <-
         lapply(.dep_var, function(dv,
                                   d = .data,
-                                  gv = .grp_var
-                                  ) {
-
+                                  gv = .grp_var,
+                                  ...) {
+          dots_ <-
+            pryr::named_dots(...)
+          lapply(dots_, eval, parent.frame())
+          
           d <-
             aov_fgrid_generate(
               .data = d,
@@ -106,7 +80,7 @@ aov_fgrid.default <-
             )
         }) %>%
         dplyr::bind_rows()
-
+      
       .data
     } else {
       .data <- aov_fgrid_generate(
@@ -117,6 +91,7 @@ aov_fgrid.default <-
       )
       .data
     }
+    
   }
 
 #' @rdname aov_fgrid

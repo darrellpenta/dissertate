@@ -15,98 +15,106 @@
 sweetpround <-
   function(.stat,
            rnd_digit,
-           interval = c("none","sig","all"),
+           interval ="sig",
            lead_zero = FALSE,
            ...) {
     options(scipen = 999)
-
-
-    if(!is.na(.stat)) assertthat::validate_that(is.numeric(.stat), .stat >= 0)
-    if(missing(interval)){
-      interval<-"none"
+    
+statout <- function(.stat, rnd_digit) {
+  round_digit <-
+        ifelse(missing(rnd_digit), 3L, as.integer(rnd_digit))
+      
+      .stat <- ifelse(is.na(.stat),
+                      NA_character_,
+                      ifelse(.stat == "",
+                             "", ifelse(
+                               .stat > .99,
+                               as.character("1.00"),
+                               ifelse(
+                                 0.0 <= .stat & .stat <= 0.0009999,
+                                 as.character("0.001"),
+                                 as.character(statround(.stat, rnd_digit = round_digit))
+                               )
+                             )))
+      
+      return(.stat)
     }
-
-    as_interval<-
-      match.arg(interval, c("none", "sign", "all"))
-    p_dots <-
-      pryr::named_dots(...)
-    lapply(p_dots, eval, parent.frame())
-
-    round_digit <-
-      ifelse(missing(rnd_digit), 3L, as.integer(rnd_digit))
-
-    stat <- .stat
-
-    if (identical(as_interval,"all")) {
-      stat_range = findInterval(stat, c(0, 0.001, 0.01, 0.05, 0.1, 99 ))
-
+trimlead <- function(.stat) {
+      .stat <-
+        ifelse(is.na(.stat), "",
+               ifelse(.stat == "NA", "",
+                      ifelse(
+                        .stat == "", "",
+                        ifelse(.stat == " ", "",
+                               paste0(
+                                 ".",
+                                 strsplit(sub('0+$', '', .stat),
+                                          ".",
+                                          fixed = TRUE)[[1]][[2]]
+                               ))
+                      )))
+      
+      .stat <-
+        ifelse(.stat != "" &
+                 nchar(strsplit(as.character(.stat),
+                                ".",
+                                fixed = TRUE)[[1]][2]) == 1,
+               paste0(.stat, "0"),
+               .stat)
+      
+      return(.stat)
+    }
+all_interval <- function(.stat) {
+      stat_range = findInterval(.stat, c(0, 0.001, 0.01, 0.05, 0.1, 99))
+      
       codes = c("< .001",
                 "< .01",
                 "< .05",
                 "< .10",
                 "> .10")
-
-      stat <-
+      
+      .stat <-
         codes[stat_range]
+      return(.stat)
+    }
+sig_interval <- function(.stat, ...) {
+  
+  stat_range <- findInterval(.stat, c(0, 0.001, 0.01, 0.05,99))
+  
+  codes <- c("$\\textless$ .001",
+             "$\\textless$ .01",
+             "$\\textless$ .05",
+             as.character(paste0("$=$ ",trimlead(statout(.stat,...=...)))))
+  .stat <-
+    codes[stat_range]
+  return(.stat)
+  
+}
+
+
+if (!is.na(.stat))
+      assertthat::validate_that(is.numeric(.stat), .stat >= 0)  
+stat <-
+      .stat
+    
+    if (identical(interval, "all")) {
+      stat <-
+        all_interval(.stat = stat)
       return(stat)
-    } else if(identical(as_interval,"sig")) {
-      if(stat <= 0.05){
-
-        stat_range = findInterval(stat, c(0, 0.001, 0.01, 0.05))
-
-        codes = c("< .001",
-                  "< .01",
-                  "< .05"
-        )
-
-        stat <-
-          codes[stat_range]
-        return(stat)
-      } else {
-        return(stat)
-      }
     } else {
-      stat_out <-
-        ifelse(is.na(stat),
-               NA_character_, ifelse(
-                 stat == "",
-                 "",ifelse(stat >.99,as.character("1.00"),
-                 ifelse(
-                   0.0 <= stat & stat <= 0.0009999,
-                   as.character("0.001"),
-                   as.character(statround(stat, rnd_digit = round_digit)))
-                 )
-               ))
-
-      stat_out
-
+      stat <-
+        sig_interval(.stat = stat, ... = ...)
+      return(stat)
     }
-
-    if (isTRUE(lead_zero)) {
-      return(stat_out)
-    } else{
-      stat_out <-
-        ifelse(is.na(stat_out), "",
-               ifelse(stat_out == "NA", "",
-                      ifelse(
-                        stat_out == "", "",
-                        ifelse(stat_out == " ", "",
-                               paste0(
-                                 ".",
-                                 strsplit(sub('0+$', '', stat_out),
-                                          ".",
-                                          fixed = TRUE)[[1]][[2]]
-                               ))
-                      )))
-
-      stat_out <-
-        ifelse(stat_out != "" &
-                 nchar(strsplit(as.character(stat_out),
-                                ".",
-                                fixed = TRUE)[[1]][2]) == 1,
-               paste0(stat_out, "0"),
-               stat_out)
-
-      return(stat_out)
-    }
+    # } else {
+    #   stat <-
+    #     statout(value = stat, ... = ...)
+    #   if (isTRUE(lead_zero)) {
+    #     return(stat)
+    #   } else {
+    #     stat <-
+    #       trimlead(stat)
+    #     return(stat)
+    #   }
+    # }
   }
