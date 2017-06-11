@@ -108,8 +108,8 @@ summary_run <-
     stats::as.formula(summary_out)
   summary <-
     lazyeval::f_eval(summary_out, data=edata)
-   summary<-
-     sweet_stat(summary)
+   # summary<-
+   #   sweet_stat(summary)
 
     }
 

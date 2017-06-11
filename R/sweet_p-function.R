@@ -26,14 +26,12 @@ sweet_p.numeric <- function(.stat, ...) {
   if (length(.stat) > 1) {
     .stat <-
       sapply(.stat,
-             sweetpround,
-             ... = ...)
+             sweetpround)
 
   } else{
 
     .stat <-
-      sweetpround(.stat = .stat,
-                  ... = ...)
+      sweetpround(.stat = .stat)
     .stat
   }
 }
@@ -48,14 +46,12 @@ sweet_p.character <- function(.stat, ...) {
   if (length(.stat) > 1) {
     .stat <-
       sapply(as.numeric(.stat),
-             sweetpround,
-             ... = ...)
+             sweetpround)
 
   } else{
 
     .stat <-
-      sweetpround(.stat = as.numeric(.stat),
-                  ... = ...)
+      sweetpround(.stat = as.numeric(.stat))
     .stat
   }
 }
@@ -90,10 +86,10 @@ sweet_p.default <- function(.stat, ...) {
           dots <-  pryr::named_dots(...)
           lapply(dots, eval, parent.frame())
 
-          lapply(x,"sweetpround",... = ...)})
+          lapply(x,"sweetpround")})
     } else {
       .stat <-
-        lapply(as.numeric(.stat), sweetpround,... = ...)
+        lapply(as.numeric(.stat), sweetpround.numeric)
     }
   } else {
     NextMethod("sweet_p")  }

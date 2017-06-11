@@ -19,68 +19,68 @@ sweetpround <-
            lead_zero = FALSE,
            ...) {
     options(scipen = 999)
-    
-statout <- function(.stat, rnd_digit=2) {
-  round_digit <-
+
+    statout <- function(.stat, rnd_digit = 2) {
+      round_digit <-
         ifelse(missing(rnd_digit), 3L, as.integer(rnd_digit))
-      
-      .stat <- ifelse(is.na(.stat),
-                      NA_character_,
-                      ifelse(.stat == "",
-                             "", ifelse(
-                               .stat > .99,
-                               as.character("1.00"),
-                               ifelse(
-                                 0.0 <= .stat & .stat <= 0.0009999,
-                                 as.character("0.001"),
-                                 as.character(statround(.stat, rnd_digit = round_digit))
-                               )
-                             )))
-      
+
+      .stat <-
+        ifelse(
+          .stat %in% c(NA,NA_character_,NA_complex_,NA_integer_,NA_real_,NaN,""," "),
+          "",
+          ifelse(
+            .stat > 0.999999999999,
+            as.character("0.999"),
+            ifelse(
+              0.0 <= .stat & .stat <= 0.0009999,
+              as.character("0.001"),
+              as.character(statround(.stat, rnd_digit = round_digit))
+            )
+          )
+        )
+
       return(.stat)
     }
-trimlead <- function(.stat) {
+    trimlead <- function(.stat) {
       .stat <-
-        ifelse(is.na(.stat), "",
-               ifelse(.stat == "NA", "",
-                      ifelse(
-                        .stat == "", "",
-                        ifelse(.stat == " ", "",
-                               paste0(
-                                 ".",
-                                 strsplit(sub('0+$', '', .stat),
-                                          ".",
-                                          fixed = TRUE)[[1]][[2]]
-                               ))
-                      )))
-      
+        ifelse(.stat %in% c(NA,NA_character_,NA_complex_,NA_integer_,NA_real_, NaN,NULL,""," "), "",
+               paste0(".",strsplit(sub('0+$', '', .stat),  ".",  fixed = TRUE)[[1]][[2]]))
+
       .stat <-
-        ifelse(.stat != "" &
-                 nchar(strsplit(as.character(.stat),
-                                ".",
-                                fixed = TRUE)[[1]][2]) == 1,
-               paste0(.stat, "0"),
-               .stat)
-      
+        if(.stat != ""){
+          if(nchar(strsplit(as.character(.stat),
+                            ".",
+                            fixed = TRUE)[[1]][2]) == 1){
+            .stat <-paste0(.stat, "0")
+            .stat
+          } else{
+            .stat
+          }
+        }else{
+          .stat<-paste0("")
+          .stat
+        }
+
       return(.stat)
     }
+
 all_interval <- function(.stat) {
       stat_range = findInterval(.stat, c(0, 0.001, 0.01, 0.05, 0.1, 99))
-      
+
       codes = c("< .001",
                 "< .01",
                 "< .05",
                 "< .10",
                 "> .10")
-      
+
       .stat <-
         codes[stat_range]
       return(.stat)
     }
 sig_interval <- function(.stat, rnd=3) {
-  
+
   stat_range <- findInterval(.stat, c(0, 0.001, 0.01, 0.05,99))
-  
+
   codes <- c("$\\textless$ .001",
              "$\\textless$ .01",
              "$\\textless$ .05",
@@ -88,15 +88,15 @@ sig_interval <- function(.stat, rnd=3) {
   .stat <-
     codes[stat_range]
   return(.stat)
-  
+
 }
 
 
 if (!is.na(.stat))
-      assertthat::validate_that(is.numeric(.stat), .stat >= 0)  
+      assertthat::validate_that(is.numeric(.stat), .stat >= 0)
 stat <-
       .stat
-    
+
     if (identical(interval, "all")) {
       stat <-
         all_interval(.stat = stat)

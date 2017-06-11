@@ -77,7 +77,7 @@ if (is.list(.stat)) {
     # with transfrom:
 
     .stat <-
-      dplyr::mutate_at(.stat, .cols=names(which(sapply(.stat,is.double)==TRUE)),function(x)lapply(x,"sweetround"))
+      dplyr::mutate_at(.stat, .vars=names(which(sapply(.stat,is.double)==TRUE)),function(x)lapply(x,"sweetround"))
   } else {
     .stat <-
       suppressWarnings(lapply(as.numeric(.stat), sweetround))

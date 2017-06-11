@@ -56,7 +56,7 @@ sweetround <- function(.stat, rnd_digit = 2, ...) {
     ifelse(is.na(stat),
            NA,
            ifelse(
-             0.0 <= stat & stat <= 0.0000999,
+             0 <= stat & stat <= 0.0000999,
              0.0001,
              ifelse(
                0.0001 <= stat & stat <= 0.0009999,
